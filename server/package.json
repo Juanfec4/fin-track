@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.0.1",
     "mysql2": "^3.6.2",
+    "nanoid": "^5.0.2",
     "nodemailer": "^6.9.7"
   },
   "devDependencies": {
