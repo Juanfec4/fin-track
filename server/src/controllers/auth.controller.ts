@@ -73,10 +73,9 @@ const loginUser = async (req: Request, res: Response) => {
   const { email, password }: User = req.body;
 
   //Search for user on DB based on email
-  const existingUser = await knex()
+  const existingUser = await knex("users")
     .select("id")
     .select("password")
-    .from("users")
     .where({ email: email })
     .first();
 
@@ -95,8 +94,11 @@ const loginUser = async (req: Request, res: Response) => {
   // Send it in response cookies
   return res
     .status(200)
-    .cookie("accessToken", token)
-    .cookie("refreshToken", refreshToken)
+    .header("Authorization", token)
+    .cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "strict",
+    })
     .json("Login successful.");
 };
 
