@@ -88,7 +88,7 @@ const loginUser = async (req: Request, res: Response) => {
   //Compare passwords to see if they match
   let hashedPassword = existingUser.password;
 
-  if (!comparePassword(password, hashedPassword))
+  if (!(await comparePassword(password, hashedPassword)))
     return res.status(401).json("Invalid password.");
 
   // Generate JWT token
@@ -114,7 +114,7 @@ const refreshToken = async (req: Request, res: Response) => {
 
   //Extract values from request
   const { refreshToken } = req.body;
-  const payload = verifyToken(refreshToken);
+  const payload = await verifyToken(refreshToken);
 
   //Verify if refresh token is valid
   if (!payload?.["user_id"])
