@@ -20,7 +20,9 @@ router.post("/", (req, res) => {
 });
 
 //Delete budget
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  return budgetController.deleteBudget(req, res);
+});
 
 //Edit budget
 router.patch("/:id", (req, res) => {});

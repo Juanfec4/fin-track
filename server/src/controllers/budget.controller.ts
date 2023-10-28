@@ -39,24 +39,37 @@ const getUserBudgetById = async (req: Request, res: Response) => {
 
   try {
     //Fetch budget that matches user id & budget id
-    const budgetId = await knex("budget_members")
+    const matchingBudget: Budget = await knex("budget_members")
       .select("budget_id")
       .where({ member_id: userId, budget_id: id })
       .first();
 
+    const budgetId = matchingBudget.budget_id;
     //Check if any budgets were found for id
     if (!budgetId)
       return res.status(404).json("No budget found for supplied id.");
 
-    const budget = await knex("budgets").select("*").where({ id: budgetId });
+    const budget = await knex("budgets")
+      .select("*")
+      .where({ id: budgetId })
+      .first();
 
-    return res.status(302).json(budget);
+    //Fetch usernames of all members of the budget
+    const userIds = await knex("budget_members")
+      .where({ budget_id: budgetId })
+      .pluck("member_id");
+
+    const budgetMembers = await knex("users")
+      .select("username", "id")
+      .whereIn("id", userIds);
+    return res.status(201).json({ ...budget, members: budgetMembers });
   } catch (e) {
+    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
 
-//create new budget
+//Create new budget
 const createBudget = async (req: Request, res: Response) => {
   //Extract user id from request (middleware adds it)
   const { userId } = req;
@@ -86,7 +99,7 @@ const createBudget = async (req: Request, res: Response) => {
 
     //Fetch created budget
     const createdBudget = await knex("budgets")
-      .select("budget_name", "uuid")
+      .select("id", "budget_name", "uuid")
       .where({ id: createdBudgetId })
       .first();
 
@@ -105,4 +118,28 @@ const createBudget = async (req: Request, res: Response) => {
   }
 };
 
-export default { getUserBudgets, getUserBudgetById, createBudget };
+//Delete budget
+const deleteBudget = async (req: Request, res: Response) => {
+  //Validate request params
+  if (!req.params["id"]) return res.status(400).json("Missing id param");
+
+  //Extract user id from request (middleware adds it), and id param
+  const { userId } = req;
+  const { id } = req.params;
+
+  //Verify user is member of budget
+  const authorizedBudgets = await knex("budget_members").where({
+    member_id: userId,
+    budget_id: id,
+  });
+  console.log(authorizedBudgets);
+
+  //Delete record
+};
+
+export default {
+  getUserBudgets,
+  getUserBudgetById,
+  createBudget,
+  deleteBudget,
+};
