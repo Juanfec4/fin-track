@@ -176,41 +176,43 @@ const editBudget = async (req: Request, res: Response) => {
 
     //Update members if request has a new members array value
     let newMembers: number[] = [];
-    if (req.body["members"] && Array.isArray(req.body.members))
+    if (req.body["members"] && Array.isArray(req.body.members)) {
       newMembers = req.body.members;
 
-    //Find members of the budget
-    const existingMembers = await knex("budget_members")
-      .where({ budget_id: id })
-      .pluck("member_id");
+      //Find members of the budget
+      const existingMembers = await knex("budget_members")
+        .where({ budget_id: id })
+        .pluck("member_id");
 
-    //Check which members are missing in the new members array
-    const membersToDelete = existingMembers.filter((member) => {
-      return newMembers.indexOf(member) < 0;
-    });
+      //Check which members are missing in the new members array
+      const membersToDelete = existingMembers.filter((member) => {
+        return newMembers.indexOf(member) < 0;
+      });
 
-    //If there are members to delete remove them.
-    if (membersToDelete.length > 0) {
-      await knex("budget_members")
-        .whereIn("member_id", membersToDelete)
-        .delete();
+      //If there are members to delete remove them.
+      if (membersToDelete.length > 0) {
+        await knex("budget_members")
+          .whereIn("member_id", membersToDelete)
+          .delete();
+      }
+    } else {
+      //Get Updated budget
+      const updatedBudget = await knex("budgets")
+        .select("*")
+        .where({ id: id })
+        .first();
+
+      //Fetch usernames of all members of the budget
+      const userIds = await knex("budget_members")
+        .where({ budget_id: id })
+        .pluck("member_id");
+
+      const budgetMembers = await knex("users")
+        .select("username", "id")
+        .whereIn("id", userIds);
+
+      return res.status(200).json({ ...updatedBudget, members: budgetMembers });
     }
-
-    //Get Updated budget
-    const updatedBudget = await knex("budgets")
-      .select("*")
-      .where({ id: id })
-      .first();
-
-    //Fetch usernames of all members of the budget
-    const userIds = await knex("budget_members")
-      .where({ budget_id: id })
-      .pluck("member_id");
-
-    const budgetMembers = await knex("users")
-      .select("username", "id")
-      .whereIn("id", userIds);
-    return res.status(201).json({ ...updatedBudget, members: budgetMembers });
   } catch (e) {
     return res.status(500).json("Server error.");
   }
