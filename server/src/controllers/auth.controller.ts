@@ -9,6 +9,7 @@ import {
 } from "../utils/validators";
 import { hashPassword } from "../utils/passwordHasher";
 import { comparePassword } from "../utils/passwordCompare";
+import { generateRefreshToken, generateToken } from "../utils/jsonWebToken";
 
 const knex = knexLibrary(knexConfig);
 
@@ -73,6 +74,7 @@ const loginUser = async (req: Request, res: Response) => {
 
   //Search for user on DB based on email
   const existingUser = await knex()
+    .select("id")
     .select("password")
     .from("users")
     .where({ email: email })
@@ -86,12 +88,16 @@ const loginUser = async (req: Request, res: Response) => {
   if (!comparePassword(password, hashedPassword))
     return res.status(401).json("Invalid password.");
 
-  //TODO:
   // Generate JWT token
-  // Send it in response cookies
+  let token = generateToken(existingUser.id);
+  let refreshToken = generateRefreshToken(existingUser.id);
 
-  //Success result
-  return res.status(200).json("Login successful.");
+  // Send it in response cookies
+  return res
+    .status(200)
+    .cookie("accessToken", token)
+    .cookie("refreshToken", refreshToken)
+    .json("Login successful.");
 };
 
 export default { registerUser, loginUser };
