@@ -1,6 +1,6 @@
 import User from "../models/user";
 import Budget from "../models/budget";
-import BudgetMembers from "../models/budget";
+import BudgetMember from "../models/budget";
 
 import { Request, Response } from "express";
 import knexConfig from "../../knexfile";
@@ -20,7 +20,9 @@ const getUserBudgets = async (req: Request, res: Response) => {
       .where({ member_id: userId })
       .pluck("budget_id");
 
-    const budgets = await knex("budgets").select("*").whereIn("id", budgetIds);
+    const budgets = await knex("budgets")
+      .select("id", "budget_name", "uuid")
+      .whereIn("id", budgetIds);
 
     return res.status(302).json(budgets);
   } catch (e) {
@@ -133,22 +135,91 @@ const deleteBudget = async (req: Request, res: Response) => {
 
   if (!record) return res.status(404).json("Budget not found.");
 
-  //Delete record
-  const deletedId = await knex("budgets")
-    .where({ id: id, owner_id: userId })
-    .delete();
+  //Check if user can delete
+  if (record?.owner_id !== userId) return res.status(401).json("Unauthorized.");
 
-  //Check if it was deleted
-  if (!deletedId) return res.status(401).json("Unauthorized.");
+  //Delete record
+  await knex("budgets").where({ id: id, owner_id: userId }).delete();
 
   return res.status(200).json("Successfully deleted.");
 };
 
 //Edit budget
+const editBudget = async (req: Request, res: Response) => {
+  //Validate request params
+  if (!req.params["id"]) return res.status(400).json("Missing id param");
+
+  //Extract user id from request (middleware adds it), and id param
+  const { userId } = req;
+  const { id } = req.params;
+
+  try {
+    //Check if budget exists
+    const record = await knex("budgets").where({ id: id }).first();
+
+    if (!record) return res.status(404).json("Budget not found.");
+
+    //Check if user has access to budget as owner
+    if (record.owner_id !== userId)
+      return res.status(401).json("Unauthorized.");
+
+    //Update name if request has a new name value
+    let newBudgetName: string = "";
+    if (req.body["budget_name"]) newBudgetName = req.body.budget_name;
+
+    //If name is different update record
+    if (newBudgetName !== record.budget_name) {
+      await knex("budgets")
+        .where({ id: id })
+        .update({ budget_name: newBudgetName });
+    }
+
+    //Update members if request has a new members array value
+    let newMembers: number[] = [];
+    if (req.body["members"] && Array.isArray(req.body.members))
+      newMembers = req.body.members;
+
+    //Find members of the budget
+    const existingMembers = await knex("budget_members")
+      .where({ budget_id: id })
+      .pluck("member_id");
+
+    //Check which members are missing in the new members array
+    const membersToDelete = existingMembers.filter((member) => {
+      return newMembers.indexOf(member) < 0;
+    });
+
+    //If there are members to delete remove them.
+    if (membersToDelete.length > 0) {
+      await knex("budget_members")
+        .whereIn("member_id", membersToDelete)
+        .delete();
+    }
+
+    //Get Updated budget
+    const updatedBudget = await knex("budgets")
+      .select("*")
+      .where({ id: id })
+      .first();
+
+    //Fetch usernames of all members of the budget
+    const userIds = await knex("budget_members")
+      .where({ budget_id: id })
+      .pluck("member_id");
+
+    const budgetMembers = await knex("users")
+      .select("username", "id")
+      .whereIn("id", userIds);
+    return res.status(201).json({ ...updatedBudget, members: budgetMembers });
+  } catch (e) {
+    return res.status(500).json("Server error.");
+  }
+};
 
 export default {
   getUserBudgets,
   getUserBudgetById,
   createBudget,
   deleteBudget,
+  editBudget,
 };

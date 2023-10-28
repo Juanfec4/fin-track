@@ -1,7 +1,7 @@
 import express from "express";
 import budgetController from "../controllers/budget.controller";
 
-//Auth router
+//Budget router
 const router = express.Router();
 
 //Get budget
@@ -25,6 +25,8 @@ router.delete("/:id", (req, res) => {
 });
 
 //Edit budget
-router.patch("/:id", (req, res) => {});
+router.patch("/:id", (req, res) => {
+  return budgetController.editBudget(req, res);
+});
 
 export default router;

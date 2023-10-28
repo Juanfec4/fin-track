@@ -1,4 +1,4 @@
-export default interface BudgetMembers {
+export default interface BudgetMember {
   budget_id: number;
   member_id: number;
 }
