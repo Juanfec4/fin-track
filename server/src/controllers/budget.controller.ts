@@ -44,11 +44,11 @@ const getUserBudgetById = async (req: Request, res: Response) => {
       .where({ member_id: userId, budget_id: id })
       .first();
 
-    const budgetId = matchingBudget.budget_id;
     //Check if any budgets were found for id
-    if (!budgetId)
+    if (!matchingBudget?.["budget_id"])
       return res.status(404).json("No budget found for supplied id.");
 
+    const budgetId = matchingBudget.budget_id;
     const budget = await knex("budgets")
       .select("*")
       .where({ id: budgetId })
@@ -64,7 +64,6 @@ const getUserBudgetById = async (req: Request, res: Response) => {
       .whereIn("id", userIds);
     return res.status(201).json({ ...budget, members: budgetMembers });
   } catch (e) {
-    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
@@ -128,13 +127,26 @@ const deleteBudget = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   //Verify user is member of budget
-  const authorizedBudgets = await knex("budget_members").where({
-    member_id: userId,
-    budget_id: id,
-  });
-  console.log(authorizedBudgets);
+  const [authorizedBudgetId] = await knex("budget_members")
+    .where({
+      member_id: userId,
+      budget_id: id,
+    })
+    .pluck("budget_id");
+
+  //Check if user is authorized to delete
+  if (!authorizedBudgetId)
+    return res.status(404).json("Cannot find budget to delete.");
 
   //Delete record
+  const deletedId = await knex("budgets")
+    .where({ id: authorizedBudgetId })
+    .delete();
+
+  //Check if it was deleted
+  if (!deletedId) return res.status(400).json("Server error.");
+
+  return res.status(200).json("Successfully deleted.");
 };
 
 export default {

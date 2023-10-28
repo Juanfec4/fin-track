@@ -5,8 +5,18 @@ export async function up(knex: Knex): Promise<void> {
     table.dropColumns("budget_id", "member_id");
   });
   await knex.schema.alterTable("budget_members", (table) => {
-    table.integer("budget_id").unsigned().references("id").inTable("budgets");
-    table.integer("member_id").unsigned().references("id").inTable("users");
+    table
+      .integer("budget_id")
+      .unsigned()
+      .references("id")
+      .inTable("budgets")
+      .onDelete("CASCADE");
+    table
+      .integer("member_id")
+      .unsigned()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE");
   });
 }
 
