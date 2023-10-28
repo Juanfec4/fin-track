@@ -1,4 +1,5 @@
 import express from "express";
+import authController from "../controllers/auth.controller";
 
 //Auth router
 const router = express.Router();
@@ -7,7 +8,9 @@ const router = express.Router();
 router.post("/login", (req, res) => {});
 
 //Register
-router.post("/register", (req, res) => {});
+router.post("/register", (req, res) => {
+  return authController.registerUser(req, res);
+});
 
 //Refresh token
 router.post("/refresh", (req, res) => {});
