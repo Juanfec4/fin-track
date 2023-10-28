@@ -1,7 +1,9 @@
 import User from "../models/user";
+
 import { Request, Response } from "express";
 import knexConfig from "../../knexfile";
 import knexLibrary from "knex";
+
 import {
   isValidEmail,
   isValidPassword,
@@ -9,6 +11,7 @@ import {
 } from "../utils/validators";
 import { hashPassword } from "../utils/passwordHasher";
 import { comparePassword } from "../utils/passwordCompare";
+
 import {
   generateRefreshToken,
   generateToken,

@@ -13,11 +13,11 @@ declare global {
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   //Validate token presence in header
-  if (!req.headers["Authorization"])
+  if (!req.headers["authorization"])
     return res.status(403).json("Missing token.");
 
   //Extract token from header
-  const token = req.headers["Authorization"] as string;
+  const token = req.headers["authorization"] as string;
 
   //Validate token
   const payload = await verifyToken(token);
