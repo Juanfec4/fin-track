@@ -5,6 +5,7 @@ import BudgetMembers from "../models/budget";
 import { Request, Response } from "express";
 import knexConfig from "../../knexfile";
 import knexLibrary from "knex";
+import { generateUUID } from "../utils/uuidGenerator";
 
 const knex = knexLibrary(knexConfig);
 
@@ -51,9 +52,57 @@ const getUserBudgetById = async (req: Request, res: Response) => {
 
     return res.status(302).json(budget);
   } catch (e) {
-    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
 
-export default { getUserBudgets, getUserBudgetById };
+//create new budget
+const createBudget = async (req: Request, res: Response) => {
+  //Extract user id from request (middleware adds it)
+  const { userId } = req;
+
+  //Validate request body
+  if (!req.body["budgetName"])
+    return res.status(400).json("Missing budget name.");
+
+  //Extract values from request
+  const budget_name = req.body.budgetName;
+
+  //Generate budget uuid
+  const uuid = await generateUUID();
+
+  try {
+    //Create budget
+    const [createdBudgetId] = await knex("budgets").insert({
+      budget_name,
+      uuid,
+    });
+
+    //Add user to budget members table
+    await knex("budget_members").insert({
+      budget_id: createdBudgetId,
+      member_id: userId,
+    });
+
+    //Fetch created budget
+    const createdBudget = await knex("budgets")
+      .select("budget_name", "uuid")
+      .where({ id: createdBudgetId })
+      .first();
+
+    //Fetch usernames of all members of the budget
+    const userIds = await knex("budget_members")
+      .where({ budget_id: createdBudgetId })
+      .pluck("member_id");
+
+    const budgetMembers = await knex("users")
+      .select("username", "id")
+      .whereIn("id", userIds);
+
+    return res.status(201).json({ ...createdBudget, members: budgetMembers });
+  } catch (e) {
+    return res.status(500).json("Server error.");
+  }
+};
+
+export default { getUserBudgets, getUserBudgetById, createBudget };

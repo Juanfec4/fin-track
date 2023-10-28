@@ -15,7 +15,9 @@ router.get("/", (req, res) => {
 });
 
 //Create budget
-router.post("/", (req, res) => {});
+router.post("/", (req, res) => {
+  return budgetController.createBudget(req, res);
+});
 
 //Delete budget
 router.delete("/:id", (req, res) => {});
