@@ -5,7 +5,9 @@ import budgetController from "../controllers/budget.controller";
 const router = express.Router();
 
 //Get budget
-router.get("/:id", (req, res) => {});
+router.get("/:id", (req, res) => {
+  return budgetController.getUserBudgetById(req, res);
+});
 
 //Get all budgets
 router.get("/", (req, res) => {
