@@ -9,7 +9,11 @@ import {
 } from "../utils/validators";
 import { hashPassword } from "../utils/passwordHasher";
 import { comparePassword } from "../utils/passwordCompare";
-import { generateRefreshToken, generateToken } from "../utils/jsonWebToken";
+import {
+  generateRefreshToken,
+  generateToken,
+  verifyToken,
+} from "../utils/jsonWebToken";
 
 const knex = knexLibrary(knexConfig);
 
@@ -91,7 +95,7 @@ const loginUser = async (req: Request, res: Response) => {
   let token = generateToken(existingUser.id);
   let refreshToken = generateRefreshToken(existingUser.id);
 
-  // Send it in response cookies
+  // Send it in response
   return res
     .status(200)
     .header("Authorization", token)
@@ -102,4 +106,29 @@ const loginUser = async (req: Request, res: Response) => {
     .json("Login successful.");
 };
 
-export default { registerUser, loginUser };
+//Refresh user token
+const refreshToken = async (req: Request, res: Response) => {
+  //Validate request body
+  if (!req.body["refreshToken"])
+    return res.status(401).json("No refresh token provided.");
+
+  //Extract values from request
+  const { refreshToken } = req.body;
+  const payload = verifyToken(refreshToken);
+
+  //Verify if refresh token is valid
+  if (!payload?.["user_id"])
+    return res.status(401).json("Invalid refresh token.");
+
+  //Extract user id
+  const userId = payload.user_id;
+  const newToken = generateToken(userId);
+
+  // Send new token in response
+  return res
+    .status(200)
+    .header("Authorization", newToken)
+    .json("Refresh successful.");
+};
+
+export default { registerUser, loginUser, refreshToken };

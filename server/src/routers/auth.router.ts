@@ -15,6 +15,8 @@ router.post("/register", (req, res) => {
 });
 
 //Refresh token
-router.post("/refresh", (req, res) => {});
+router.post("/refresh", (req, res) => {
+  return authController.refreshToken(req, res);
+});
 
 export default router;
