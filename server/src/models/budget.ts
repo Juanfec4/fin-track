@@ -6,4 +6,5 @@ export default interface BudgetMembers {
 export default interface Budget {
   uuid: string;
   budget_name: string;
+  owner_id: string;
 }

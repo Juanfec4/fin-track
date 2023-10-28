@@ -5,6 +5,13 @@ export async function up(knex: Knex): Promise<void> {
     table.increments("id").primary();
     table.string("uuid").unique().notNullable();
     table.string("budget_name").notNullable();
+    table
+      .integer("owner_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE");
   });
 }
 
