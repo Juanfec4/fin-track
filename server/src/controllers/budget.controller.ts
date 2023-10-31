@@ -1,6 +1,4 @@
-import User from "../models/user";
 import Budget from "../models/budget";
-import BudgetMember from "../models/budget";
 
 import { Request, Response } from "express";
 import knexConfig from "../../knexfile";
@@ -33,7 +31,7 @@ const getUserBudgets = async (req: Request, res: Response) => {
 //Get 1 budget by id
 const getUserBudgetById = async (req: Request, res: Response) => {
   //Validate request params
-  if (!req.params["id"]) return res.status(400).json("Missing id param");
+  if (!req.params["id"]) return res.status(400).json("Missing id query param");
 
   //Extract user id from request (middleware adds it), and id param
   const { userId } = req;
@@ -80,7 +78,7 @@ const createBudget = async (req: Request, res: Response) => {
     return res.status(400).json("Missing budget name.");
 
   //Extract values from request
-  const budget_name = req.body.budgetName;
+  const { budgetName } = req.body;
 
   //Generate budget uuid
   const uuid = await generateUUID();
@@ -88,7 +86,7 @@ const createBudget = async (req: Request, res: Response) => {
   try {
     //Create budget
     const [createdBudgetId] = await knex("budgets").insert({
-      budget_name,
+      budget_name: budgetName,
       uuid,
       owner_id: userId,
     });
