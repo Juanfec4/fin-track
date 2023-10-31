@@ -136,10 +136,17 @@ const deleteBudget = async (req: Request, res: Response) => {
   //Check if user can delete
   if (record?.owner_id !== userId) return res.status(401).json("Unauthorized.");
 
-  //Delete record
-  await knex("budgets").where({ id: id, owner_id: userId }).delete();
+  try {
+    //Delete record
+    const result = await knex("budgets")
+      .where({ id: id, owner_id: userId })
+      .delete();
 
-  return res.status(200).json("Successfully deleted.");
+    if (!result) return res.status(404).json("No budget found for id.");
+    return res.status(200).json("Successfully deleted.");
+  } catch (e) {
+    return res.status(500).json("Server error");
+  }
 };
 
 //Edit budget

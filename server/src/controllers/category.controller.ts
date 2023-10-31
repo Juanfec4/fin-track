@@ -175,12 +175,13 @@ const deleteCategory = async (req: Request, res: Response) => {
       return res.status(403).json("No budget found for supplied id.");
 
     //Get all categories for budget id
-    await knex("categories")
+    const result = await knex("categories")
       .where({
         budget_id: budgetId,
         id: categoryId,
       })
       .delete();
+    if (!result) return res.status(404).json("No category found for id.");
     return res.status(302).json("Successfully deleted.");
   } catch (e) {
     return res.status(500).json("Server error.");

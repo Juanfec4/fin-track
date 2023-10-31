@@ -13,7 +13,7 @@ const getAllTransactions = async (req: Request, res: Response) => {
   //Check if request query include budget id
   if (!req.query["budgetId"]) return res.status(400).json("Missing budget id.");
 
-  const { budgetId } = req.query;
+  const { budgetId, categoryId } = req.query;
 
   try {
     //Fetch budget that matches user id & budget id
@@ -29,17 +29,21 @@ const getAllTransactions = async (req: Request, res: Response) => {
     )
       return res.status(404).json("No budget found for supplied id.");
 
-    //Get all transactions for budget id
-    const budgetTransactions = await knex("transactions").where({
-      budget_id: budgetId,
-    });
+    //Get all transactions for budget id, if a category id is specified, filter by that too.
+    const budgetTransactions = await knex("transactions").where(
+      categoryId
+        ? { budget_id: budgetId, category_id: categoryId }
+        : {
+            budget_id: budgetId,
+          }
+    );
     return res.status(302).json(budgetTransactions);
   } catch (e) {
     return res.status(500).json("Server error.");
   }
 };
 
-//Gre transaction by id
+//Get transaction by id
 const getTransaction = async (req: Request, res: Response) => {
   //Extract user id from request (middleware adds it)
   const { userId } = req;
@@ -120,15 +124,62 @@ const createTransaction = async (req: Request, res: Response) => {
       newTransaction
     );
     //Select category to send it back in response
-    const createdTransaction = await knex("transaction")
+    const createdTransaction = await knex("transactions")
       .where({
         id: createdTransactionId,
       })
       .first();
     return res.status(201).json(createdTransaction);
   } catch (e) {
+    console.log(e);
     return res.status(500).json("Sever error.");
   }
 };
 
-export default { getAllTransactions, getTransaction };
+//Delete transaction
+const deleteTransaction = async (req: Request, res: Response) => {
+  //Extract user id from request (middleware adds it)
+  const { userId } = req;
+
+  //Check if request query include budget id & transaction id
+  if (!req.query["budgetId"]) return res.status(400).json("Missing budget id.");
+  if (!req.params["id"]) return res.status(400).json("Missing transaction id.");
+
+  //Extract budget_id from query & category id from params
+  const { budgetId } = req.query;
+  const transactionId = req.params.id;
+
+  try {
+    //Fetch budget that matches user id & budget id
+    const matchingBudget: Budget = await knex("budget_members")
+      .select("budget_id")
+      .where({ member_id: userId, budget_id: budgetId })
+      .first();
+
+    //Check if any budgets were found for id
+    if (
+      !matchingBudget?.["budget_id"] ||
+      Number(budgetId) !== matchingBudget?.["budget_id"]
+    )
+      return res.status(403).json("No budget found for supplied id.");
+
+    //Get all categories for budget id
+    const result = await knex("transactions")
+      .where({
+        budget_id: budgetId,
+        id: transactionId,
+      })
+      .delete();
+    if (!result) return res.status(404).json("No transaction found for id.");
+    return res.status(302).json("Successfully deleted.");
+  } catch (e) {
+    return res.status(500).json("Server error.");
+  }
+};
+
+export default {
+  getAllTransactions,
+  getTransaction,
+  createTransaction,
+  deleteTransaction,
+};

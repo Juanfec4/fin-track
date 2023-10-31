@@ -15,10 +15,14 @@ router.get("/", (req, res) => {
 });
 
 //Create transaction
-router.post("/", (req, res) => {});
+router.post("/", (req, res) => {
+  return transactionController.createTransaction(req, res);
+});
 
 //Delete transaction
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  return transactionController.deleteTransaction(req, res);
+});
 
 //Edit transaction
 router.patch("/:id", (req, res) => {});
