@@ -7,6 +7,47 @@ import knexLibrary from "knex";
 
 const knex = knexLibrary(knexConfig);
 
+//Get category by id in budget
+const getBudgetCategory = async (req: Request, res: Response) => {
+  //Extract user id from request (middleware adds it)
+  const { userId } = req;
+
+  //Check if request query include budget id & category id
+  if (!req.query["budgetId"]) return res.status(400).json("Missing budget id.");
+  if (!req.params["id"]) return res.status(400).json("Missing category id.");
+
+  //Extract budget_id from query & category id from params
+  const { budgetId } = req.query;
+  const categoryId = req.params.id;
+
+  try {
+    //Fetch budget that matches user id & budget id
+    const matchingBudget: Budget = await knex("budget_members")
+      .select("budget_id")
+      .where({ member_id: userId, budget_id: budgetId })
+      .first();
+
+    //Check if any budgets were found for id
+    if (
+      !matchingBudget?.["budget_id"] ||
+      Number(budgetId) !== matchingBudget?.["budget_id"]
+    )
+      return res.status(404).json("No budget found for supplied id.");
+
+    //Get all categories for budget id
+    const budgetCategory = await knex("categories")
+      .where({
+        budget_id: budgetId,
+        id: categoryId,
+      })
+      .first();
+    return res.status(302).json(budgetCategory);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json("Server error.");
+  }
+};
+
 //Get all categories in budget
 const getAllBudgetCategories = async (req: Request, res: Response) => {
   //Extract user id from request (middleware adds it)
@@ -104,4 +145,4 @@ const createNewCategory = async (req: Request, res: Response) => {
   return res.status(201).json(createdCategory);
 };
 
-export default { getAllBudgetCategories, createNewCategory };
+export default { getAllBudgetCategories, createNewCategory, getBudgetCategory };
