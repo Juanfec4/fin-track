@@ -20,7 +20,9 @@ router.post("/", (req, res) => {
 });
 
 //Delete category
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  return categoryController.deleteCategory(req, res);
+});
 
 //Edit category
 router.patch("/:id", (req, res) => {});
