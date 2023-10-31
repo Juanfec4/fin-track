@@ -186,9 +186,88 @@ const deleteCategory = async (req: Request, res: Response) => {
   }
 };
 
+//Edit category
+const editCategory = async (req: Request, res: Response) => {
+  //Extract user id from request (middleware adds it)
+  const { userId } = req;
+
+  //Check if request query include category id
+  if (!req.params["id"]) return res.status(400).json("Missing category id.");
+
+  //Extract budget_id from query & category id from params
+  const categoryId = req.params.id;
+
+  //Extract values from request body
+  const { budgetId, allocatedAmount, categoryName } = req.body;
+  let { type } = req.body;
+
+  try {
+    //Check if user has access to budget with id
+    const matchingBudget = await knex("budget_members")
+      .where({
+        budget_id: budgetId,
+        member_id: userId,
+      })
+      .first();
+
+    //Check if any budgets were found for id
+    if (
+      !matchingBudget?.["budget_id"] ||
+      Number(budgetId) !== matchingBudget?.["budget_id"]
+    )
+      return res.status(404).json("No budget found for supplied id.");
+
+    //Get prev category
+    const prevCategory = await knex("categories")
+      .where({
+        budget_id: budgetId,
+        id: categoryId,
+      })
+      .first();
+
+    //If there is no previous category theres a logic error, probably race conditions.
+    if (!prevCategory) return res.status(500).json("Server error.");
+
+    //If type is not valid string set it to undefined
+    if (
+      type !== "income" &&
+      type !== "expense" &&
+      type !== "saving" &&
+      type !== "investment"
+    )
+      type = prevCategory.type;
+
+    //Create new category
+    const newCategory: Category = {
+      category_name: categoryName || prevCategory.category_name,
+      budget_id: prevCategory.budget_id,
+      type: type || prevCategory.type,
+      allocated_amount: allocatedAmount || prevCategory.allocated_amount,
+    };
+
+    //Update record
+    await knex("categories")
+      .where({
+        id: categoryId,
+      })
+      .update(newCategory);
+
+    //Get updated record
+    const updatedCategory = await knex("categories").where({
+      id: categoryId,
+    });
+
+    return res.status(200).json(updatedCategory);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json("Server error.");
+  }
+};
+
 export default {
   getAllBudgetCategories,
   createNewCategory,
   getBudgetCategory,
   deleteCategory,
+  editCategory,
 };

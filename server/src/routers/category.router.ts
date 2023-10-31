@@ -25,6 +25,8 @@ router.delete("/:id", (req, res) => {
 });
 
 //Edit category
-router.patch("/:id", (req, res) => {});
+router.patch("/:id", (req, res) => {
+  return categoryController.editCategory(req, res);
+});
 
 export default router;
