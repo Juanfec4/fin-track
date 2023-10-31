@@ -18,6 +18,8 @@ import {
   verifyToken,
 } from "../utils/jsonWebToken";
 
+import mailService from "../mailer/mailService";
+
 const knex = knexLibrary(knexConfig);
 
 //Register user
@@ -41,32 +43,57 @@ const registerUser = async (req: Request, res: Response) => {
   if (!isValidPassword(password))
     return res.status(400).json("Invalid password.");
 
-  //Check if user does not exist on DB
-  const existingUser = await knex
-    .select("*")
-    .from("users")
-    .where({ username: username })
-    .orWhere({ email: email });
+  try {
+    //Check if user does not exist on DB
+    const existingUser = await knex
+      .select("*")
+      .from("users")
+      .where({ username: username })
+      .orWhere({ email: email });
 
-  if (existingUser.length !== 0)
-    return res.status(400).json("User already exists.");
+    if (existingUser.length !== 0)
+      return res.status(400).json("User already exists.");
 
-  //Hash password
-  let hashedPassword = await hashPassword(password);
+    //Hash password
+    let hashedPassword = await hashPassword(password);
 
-  //Create user object from model
-  let newUser: User = {
-    username: username,
-    email: email,
-    password: hashedPassword,
-  };
-  //Create new user on DB
-  let resultId = await knex("users").insert(newUser);
+    //Create user object from model
+    let newUser: User = {
+      username: username,
+      email: email,
+      password: hashedPassword,
+    };
+    //Create new user on DB
+    let resultId = await knex("users").insert(newUser);
 
-  if (resultId.length !== 0) {
-    return res.status(201).json("User created successfully.");
+    if (resultId.length !== 0) {
+      //Create email transporter
+      const transporter = mailService.createTransporter();
+
+      //Create email welcome email
+      const welcomeEmail = await mailService.createEmail(
+        email,
+        "Welcome to Fin Track",
+        "welcomeEmail",
+        {
+          title: "Thank you for creating an account with us.",
+          message: "You are one step closer to reaching financial wellbeing.",
+        }
+      );
+
+      //Send email
+      transporter.sendMail(welcomeEmail, (error, info) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).json("Server error.");
+        }
+        return res.status(201).json("User created successfully.");
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json("Server error.");
   }
-  return res.status(500).json("Server error.");
 };
 
 //Login user
