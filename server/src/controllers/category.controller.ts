@@ -32,7 +32,7 @@ const getBudgetCategory = async (req: Request, res: Response) => {
       !matchingBudget?.["budget_id"] ||
       Number(budgetId) !== matchingBudget?.["budget_id"]
     )
-      return res.status(404).json("No budget found for supplied id.");
+      return res.status(403).json("No budget found for supplied id.");
 
     //Get all categories for budget id
     const budgetCategory = await knex("categories")
@@ -43,7 +43,6 @@ const getBudgetCategory = async (req: Request, res: Response) => {
       .first();
     return res.status(302).json(budgetCategory);
   } catch (e) {
-    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
@@ -71,7 +70,7 @@ const getAllBudgetCategories = async (req: Request, res: Response) => {
       !matchingBudget?.["budget_id"] ||
       Number(budgetId) !== matchingBudget?.["budget_id"]
     )
-      return res.status(404).json("No budget found for supplied id.");
+      return res.status(403).json("No budget found for supplied id.");
 
     //Get all categories for budget id
     const budgetCategories = await knex("categories").where({
@@ -79,7 +78,6 @@ const getAllBudgetCategories = async (req: Request, res: Response) => {
     });
     return res.status(302).json(budgetCategories);
   } catch (e) {
-    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
@@ -111,38 +109,42 @@ const createNewCategory = async (req: Request, res: Response) => {
       .status(400)
       .json("Invalid type, must be: income, expense, saving or investment.");
 
-  //Check if user has access to budget with id
-  const matchingBudget = await knex("budget_members")
-    .where({
+  try {
+    //Check if user has access to budget with id
+    const matchingBudget = await knex("budget_members")
+      .where({
+        budget_id: budgetId,
+        member_id: userId,
+      })
+      .first();
+
+    //Check if any budgets were found for id
+    if (
+      !matchingBudget?.["budget_id"] ||
+      Number(budgetId) !== matchingBudget?.["budget_id"]
+    )
+      return res.status(403).json("No budget found for supplied id.");
+
+    //Create new category
+    const newCategory: Category = {
+      category_name: categoryName,
       budget_id: budgetId,
-      member_id: userId,
-    })
-    .first();
+      type,
+      allocated_amount: allocatedAmount,
+    };
+    const [createdCategoryId] = await knex("categories").insert(newCategory);
 
-  //Check if any budgets were found for id
-  if (
-    !matchingBudget?.["budget_id"] ||
-    Number(budgetId) !== matchingBudget?.["budget_id"]
-  )
-    return res.status(404).json("No budget found for supplied id.");
+    //Select category to send it back in response
+    const createdCategory = await knex("categories")
+      .where({
+        id: createdCategoryId,
+      })
+      .first();
 
-  //Create new category
-  const newCategory: Category = {
-    category_name: categoryName,
-    budget_id: budgetId,
-    type,
-    allocated_amount: allocatedAmount,
-  };
-  const [createdCategoryId] = await knex("categories").insert(newCategory);
-
-  //Select category to send it back in response
-  const createdCategory = await knex("categories")
-    .where({
-      id: createdCategoryId,
-    })
-    .first();
-
-  return res.status(201).json(createdCategory);
+    return res.status(201).json(createdCategory);
+  } catch (e) {
+    return res.status(500).json("Server error.");
+  }
 };
 
 //Delete category
@@ -170,7 +172,7 @@ const deleteCategory = async (req: Request, res: Response) => {
       !matchingBudget?.["budget_id"] ||
       Number(budgetId) !== matchingBudget?.["budget_id"]
     )
-      return res.status(404).json("No budget found for supplied id.");
+      return res.status(403).json("No budget found for supplied id.");
 
     //Get all categories for budget id
     await knex("categories")
@@ -181,7 +183,6 @@ const deleteCategory = async (req: Request, res: Response) => {
       .delete();
     return res.status(302).json("Successfully deleted.");
   } catch (e) {
-    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
@@ -215,7 +216,7 @@ const editCategory = async (req: Request, res: Response) => {
       !matchingBudget?.["budget_id"] ||
       Number(budgetId) !== matchingBudget?.["budget_id"]
     )
-      return res.status(404).json("No budget found for supplied id.");
+      return res.status(403).json("No budget found for supplied id.");
 
     //Get prev category
     const prevCategory = await knex("categories")
@@ -259,7 +260,6 @@ const editCategory = async (req: Request, res: Response) => {
 
     return res.status(200).json(updatedCategory);
   } catch (e) {
-    console.log(e);
     return res.status(500).json("Server error.");
   }
 };
