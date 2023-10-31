@@ -25,6 +25,8 @@ router.delete("/:id", (req, res) => {
 });
 
 //Edit transaction
-router.patch("/:id", (req, res) => {});
+router.patch("/:id", (req, res) => {
+  return transactionController.editTransaction(req, res);
+});
 
 export default router;

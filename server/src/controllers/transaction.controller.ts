@@ -92,9 +92,10 @@ const createTransaction = async (req: Request, res: Response) => {
   if (!req.body["categoryId"])
     return res.status(400).json("Missing category id.");
   if (!req.body["amount"]) return res.status(400).json("Missing amount.");
+  if (!req.body["dateTime"]) return res.status(400).json("Missing date.");
 
   //Extract values from request body
-  const { budgetId, categoryId, amount, description } = req.body;
+  const { budgetId, categoryId, amount, description, dateTime } = req.body;
 
   try {
     //Check if user has access to budget with id
@@ -117,7 +118,7 @@ const createTransaction = async (req: Request, res: Response) => {
       category_id: categoryId,
       budget_id: budgetId,
       amount,
-      date: new Date(Date.now()),
+      date: dateTime,
       description: description || "",
     };
     const [createdTransactionId] = await knex("transactions").insert(
@@ -177,9 +178,77 @@ const deleteTransaction = async (req: Request, res: Response) => {
   }
 };
 
+//Edit transactions
+const editTransaction = async (req: Request, res: Response) => {
+  //Extract user id from request (middleware adds it)
+  const { userId } = req;
+
+  //Check if request query include category id
+  if (!req.params["id"]) return res.status(400).json("Missing transaction id.");
+
+  //Extract budget_id from query & category id from params
+  const transactionId = req.params.id;
+
+  //Extract values from request body
+  const { budgetId, categoryId, amount, date, description } = req.body;
+
+  try {
+    //Check if user has access to budget with id
+    const matchingBudget = await knex("budget_members")
+      .where({
+        budget_id: budgetId,
+        member_id: userId,
+      })
+      .first();
+
+    //Check if any budgets were found for id
+    if (
+      !matchingBudget?.["budget_id"] ||
+      Number(budgetId) !== matchingBudget?.["budget_id"]
+    )
+      return res.status(403).json("No budget found for supplied id.");
+
+    //Get prev transaction
+    const prevTransaction = await knex("transactions")
+      .where({
+        budget_id: budgetId,
+        id: transactionId,
+      })
+      .first();
+
+    //If there is no previous transaction theres a logic error, probably race conditions.
+    if (!prevTransaction) return res.status(500).json("Server error.");
+
+    //Create new transaction
+    const newTransaction: Transaction = {
+      category_id: categoryId || prevTransaction.category_id,
+      budget_id: prevTransaction.budget_id,
+      amount: amount || prevTransaction.amount,
+      description: description || prevTransaction.description,
+      date: date || prevTransaction.date,
+    };
+
+    //Update record
+    await knex("transactions")
+      .where({
+        id: transactionId,
+      })
+      .update(newTransaction);
+
+    //Get updated record
+    const updatedTransaction = await knex("transactions").where({
+      id: transactionId,
+    });
+
+    return res.status(200).json(updatedTransaction);
+  } catch (e) {
+    return res.status(500).json("Server error.");
+  }
+};
 export default {
   getAllTransactions,
   getTransaction,
   createTransaction,
   deleteTransaction,
+  editTransaction,
 };
