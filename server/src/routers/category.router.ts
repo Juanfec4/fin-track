@@ -13,7 +13,9 @@ router.get("/", (req, res) => {
 });
 
 //Create category
-router.post("/", (req, res) => {});
+router.post("/", (req, res) => {
+  return categoryController.createNewCategory(req, res);
+});
 
 //Delete category
 router.delete("/:id", (req, res) => {});
