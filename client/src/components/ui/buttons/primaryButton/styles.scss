@@ -1,0 +1,34 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.button {
+  &--primary {
+    @include buttonBase;
+  }
+  &--primary:hover {
+    cursor: pointer;
+  }
+}
+
+.theme {
+  &--red {
+    .button--primary {
+      background-color: $chestnut-500;
+      color: $chestnut-50;
+    }
+  }
+  &--blue {
+    .button--primary {
+      background-color: $picton-blue-500;
+      color: $picton-blue-50;
+    }
+  }
+  &--green {
+    .button--primary {
+      background-color: $yellow-green-500;
+      color: $yellow-green-50;
+    }
+  }
+}

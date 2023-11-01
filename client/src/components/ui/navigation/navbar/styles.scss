@@ -1,0 +1,76 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$font-size: 1.15rem;
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $padding-lg;
+  &__menu-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+  }
+  &__action-container {
+    justify-self: flex-end;
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+  }
+  &__menu-list {
+    display: flex;
+    list-style: none;
+  }
+  &__menu-item {
+    padding: $padding-sm;
+  }
+  &__menu-link {
+    text-decoration: none;
+    font-style: normal;
+    font-size: $font-size;
+  }
+  &__menu-link--active {
+    @extend .nav__menu-link;
+    text-decoration: underline;
+  }
+}
+
+.theme {
+  &--red {
+    .nav {
+      background-color: $chestnut-950;
+      &__menu-link {
+        color: $chestnut-50;
+        &--active {
+          color: $chestnut-500;
+        }
+      }
+    }
+  }
+  &--green {
+    .nav {
+      background-color: $yellow-green-950;
+      &__menu-link {
+        color: $yellow-green-50;
+        &--active {
+          color: $yellow-green-500;
+        }
+      }
+    }
+  }
+  &--blue {
+    .nav {
+      background-color: $picton-blue-950;
+      &__menu-link {
+        color: $picton-blue-50;
+        &--active {
+          color: $picton-blue-500;
+        }
+      }
+    }
+  }
+}

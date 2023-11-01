@@ -1,11 +1,21 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
+import Navbar from "../../ui/navigation/navbar";
 
 const SalesPageLayout: FC = () => {
   return (
-    <main>
-      <Outlet />
-    </main>
+    <div className="theme--blue">
+      <Navbar
+        links={[
+          { target: "/", text: "Home" },
+          { target: "/faq", text: "FAQ" },
+          { target: "/web-app", text: "Web-app" },
+        ]}
+      />
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

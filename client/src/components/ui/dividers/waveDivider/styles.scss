@@ -1,0 +1,22 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.theme {
+  &--blue {
+    .wave-divider {
+      @include waveContainer($picton-blue-950);
+    }
+  }
+  &--green {
+    .wave-divider {
+      @include waveContainer($yellow-green-950);
+    }
+  }
+  &--red {
+    .wave-divider {
+      @include waveContainer($chestnut-950);
+    }
+  }
+}

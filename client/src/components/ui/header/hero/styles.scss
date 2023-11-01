@@ -1,0 +1,67 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$max-width: 1000px;
+.hero {
+  &__content {
+    display: flex;
+    padding: $padding-lg;
+    gap: $gap-lg;
+    height: 50vh;
+    max-width: $max-width;
+    margin: 0 auto;
+  }
+  &__call-to-action {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: $gap-lg;
+  }
+  &__image-container {
+  }
+  &__title {
+    max-width: 30ch;
+  }
+  &__text {
+    max-width: 57ch;
+  }
+}
+
+.theme {
+  &--red {
+    .hero {
+      background-color: $chestnut-950;
+      &__title {
+        color: $chestnut-50;
+      }
+      &__text {
+        color: $chestnut-200;
+      }
+    }
+  }
+  &--blue {
+    .hero {
+      background-color: $picton-blue-950;
+      &__title {
+        color: $picton-blue-50;
+      }
+      &__text {
+        color: $picton-blue-200;
+      }
+    }
+  }
+  &--green {
+    .hero {
+      background-color: $yellow-green-950;
+      &__title {
+        color: $yellow-green-50;
+      }
+      &__text {
+        color: $yellow-green-200;
+      }
+    }
+  }
+}

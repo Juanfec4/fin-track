@@ -1,0 +1,37 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.button {
+  &--secondary {
+    @include buttonBase;
+    background-color: transparent;
+    border: solid $border-sm;
+    font-weight: bold;
+  }
+  &--secondary:hover {
+    cursor: pointer;
+  }
+}
+
+.theme {
+  &--red {
+    .button--secondary {
+      border-color: $chestnut-200;
+      color: $chestnut-200;
+    }
+  }
+  &--blue {
+    .button--secondary {
+      border-color: $picton-blue-200;
+      color: $picton-blue-200;
+    }
+  }
+  &--green {
+    .button--secondary {
+      border-color: $yellow-green-200;
+      color: $yellow-green-200;
+    }
+  }
+}
