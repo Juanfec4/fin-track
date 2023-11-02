@@ -5,7 +5,6 @@ import ScrollMenu from "../../components/ui/menus/scrollMenu";
 const FaqPage: FC = () => {
   return (
     <div className="faq-page">
-      <h1 className="faq-page__title">Frequently asked questions</h1>
       <div className="faq-page__content">
         <div className="faq-page__layout-section--left">
           <ScrollMenu
@@ -22,26 +21,69 @@ const FaqPage: FC = () => {
           />
         </div>
         <div className="faq-page__layout-section--right">
+          <h1 className="faq-section__title">FAQ</h1>
           <div className="faq-section" id="pos-1">
-            <h4>Getting started</h4>
+            <h4 className="faq-section__title">Getting started</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
           <div className="faq-section" id="pos-2">
-            <h4>Making a budget</h4>
+            <h4 className="faq-section__title">Making a budget</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
           <div className="faq-section" id="pos-3">
-            <h4>How to use the app</h4>
+            <h4 className="faq-section__title">How to use the app</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
           <div className="faq-section" id="pos-4">
-            <h4>Adding users</h4>
+            <h4 className="faq-section__title">Adding users</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
           <div className="faq-section" id="pos-5">
-            <h4>Categories</h4>
+            <h4 className="faq-section__title">Categories</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
           <div className="faq-section" id="pos-6">
-            <h4>Transactions</h4>
+            <h4 className="faq-section__title">Transactions</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
-          <div className="faq-section" id="pos-6">
-            <h4>Reports</h4>
+          <div className="faq-section" id="pos-7">
+            <h4 className="faq-section__title">Reports</h4>
+            <p className="faq-section__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              consectetur eius, delectus odio, expedita repellendus qui iusto
+              obcaecati libero at perferendis cupiditate enim placeat laudantium
+              mollitia fugiat quis! Id, perferendis.
+            </p>
           </div>
         </div>
       </div>

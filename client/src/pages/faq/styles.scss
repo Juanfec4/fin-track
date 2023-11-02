@@ -4,11 +4,6 @@
 @use "../../assets/styles/partials/mixins" as *;
 
 .faq-page {
-  &__title {
-    text-align: start;
-    padding: $padding-lg;
-    margin-bottom: calc($margin-lg * 2);
-  }
   &__content {
     height: 70vh;
     display: grid;
@@ -30,20 +25,32 @@
       padding: $padding-lg;
     }
   }
+  .faq-section {
+    margin: calc($margin-lg * 3) 0;
+    &__title {
+      padding: 0 $padding-sm;
+      margin: $margin-sm 0;
+      border-left: $border-md solid;
+    }
+  }
 }
+
 .theme {
   &--red {
     .faq-page {
       background-color: $chestnut-100;
-      &__title {
-        color: $chestnut-900;
-      }
       &__layout-section {
         &--right {
           background-color: white;
         }
         &--left {
           background-color: transparent;
+        }
+      }
+      .faq-section {
+        &__title {
+          color: $chestnut-900;
+          border-color: $chestnut-300;
         }
       }
     }
@@ -51,15 +58,18 @@
   &--blue {
     .faq-page {
       background-color: $picton-blue-100;
-      &__title {
-        color: $picton-blue-900;
-      }
       &__layout-section {
         &--right {
           background-color: white;
         }
         &--left {
           background-color: transparent;
+        }
+      }
+      .faq-section {
+        &__title {
+          color: $picton-blue-900;
+          border-color: $picton-blue-300;
         }
       }
     }
@@ -67,15 +77,18 @@
   &--green {
     .faq-page {
       background-color: $yellow-green-100;
-      &__title {
-        color: $yellow-green-900;
-      }
       &__layout-section {
         &--right {
           background-color: white;
         }
         &--left {
           background-color: transparent;
+        }
+      }
+      .faq-section {
+        &__title {
+          color: $yellow-green-900;
+          border-color: $yellow-green-300;
         }
       }
     }
