@@ -3,6 +3,12 @@
 @use "../../../../assets/styles/partials/variables" as *;
 @use "../../../../assets/styles/partials/mixins" as *;
 
+.wave-divider {
+  display: none;
+  @include md {
+    display: block;
+  }
+}
 .theme {
   &--blue {
     .wave-divider {
