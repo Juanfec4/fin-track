@@ -4,7 +4,7 @@ import Navbar from "../../ui/navigation/navbar";
 
 const SalesPageLayout: FC = () => {
   return (
-    <div className="theme--blue">
+    <>
       <Navbar
         links={[
           { target: "/", text: "Home" },
@@ -15,7 +15,7 @@ const SalesPageLayout: FC = () => {
       <main>
         <Outlet />
       </main>
-    </div>
+    </>
   );
 };
 

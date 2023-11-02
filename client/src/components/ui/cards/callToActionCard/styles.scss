@@ -6,12 +6,20 @@
 $max-width: calc(1000px - 3 * $padding-lg);
 .call-to-action {
   display: flex;
-  max-width: $max-width;
+  max-width: max-content;
   margin: 0 auto;
   border-radius: $radius-sm;
   border: solid $border-sm;
   padding: $padding-lg;
   gap: $gap-lg;
+  @include md {
+    width: max-content;
+    max-width: $max-width;
+  }
+  @include lg {
+    width: auto;
+    margin: 0 auto;
+  }
   &__container {
     display: flex;
     flex-direction: column;
@@ -20,13 +28,21 @@ $max-width: calc(1000px - 3 * $padding-lg);
     justify-content: space-between;
   }
   &__image {
+    display: none;
     align-self: flex-end;
+    @include md {
+      display: block;
+    }
   }
   &__title {
     max-width: 20ch;
   }
   &__text {
-    max-width: 60ch;
+    max-width: 40ch;
+    padding: $padding-sm 0;
+    @include md {
+      max-width: 60ch;
+    }
   }
 }
 
@@ -35,7 +51,7 @@ $max-width: calc(1000px - 3 * $padding-lg);
     .call-to-action {
       border-color: $chestnut-900;
       &__title {
-        color: $chestnut-500;
+        color: $chestnut-800;
       }
     }
   }
@@ -44,7 +60,7 @@ $max-width: calc(1000px - 3 * $padding-lg);
     .call-to-action {
       border-color: $picton-blue-900;
       &__title {
-        color: $picton-blue-500;
+        color: $picton-blue-800;
       }
     }
   }
@@ -53,7 +69,7 @@ $max-width: calc(1000px - 3 * $padding-lg);
     .call-to-action {
       border-color: $yellow-green-900;
       &__title {
-        color: $yellow-green-500;
+        color: $yellow-green-800;
       }
     }
   }
