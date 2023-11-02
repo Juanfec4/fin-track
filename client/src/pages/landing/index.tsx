@@ -52,11 +52,11 @@ const features = [
 const LandingPage: FC = () => {
   const navigator = useNavigate();
   return (
-    <>
+    <div className="landing-page">
       <Hero />
       <WaveDivider />
       <section className="feature-section">
-        <h2 className="section-title">ALL IN ONE PLACE</h2>
+        <h2 className="section-title">All in one place</h2>
         <FeatureGallery features={features} />
       </section>
       <section className="cta-section">
@@ -68,7 +68,7 @@ const LandingPage: FC = () => {
           handleClick={() => navigator("/auth/register")}
         />
       </section>
-    </>
+    </div>
   );
 };
 

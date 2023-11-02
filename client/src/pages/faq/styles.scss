@@ -1,0 +1,66 @@
+@use "../../assets/styles/partials/colors" as *;
+@use "../../assets/styles/partials/responsive" as *;
+@use "../../assets/styles/partials/variables" as *;
+@use "../../assets/styles/partials/mixins" as *;
+
+.faq-page {
+  &__title {
+    text-align: center;
+    padding: $padding-lg;
+  }
+  &__content {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  &__layout-section {
+    margin: $margin-lg;
+    border-radius: $radius-sm;
+    &--left {
+      @extend .faq-page__layout-section;
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+    &--right {
+      @extend .faq-page__layout-section;
+      grid-column-start: 4;
+      grid-column-end: 13;
+    }
+  }
+}
+
+.theme {
+  &--red {
+    .faq-page {
+      background-color: $chestnut-100;
+      &__title {
+        color: $chestnut-900;
+      }
+      &__layout-section--left {
+        background-color: $chestnut-300;
+      }
+    }
+  }
+  &--blue {
+    .faq-page {
+      background-color: $picton-blue-100;
+      &__title {
+        color: $picton-blue-900;
+      }
+      &__layout-section--left {
+        background-color: $picton-blue-300;
+      }
+    }
+  }
+  &--green {
+    .faq-page {
+      background-color: $yellow-green-100;
+      &__title {
+        color: $yellow-green-900;
+      }
+      &__layout-section--left {
+        background-color: $yellow-green-300;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import LandingPage from "./pages/landing";
 import SalesPageLayout from "./components/layout/salesPage";
 import WebAppLayout from "./components/layout/webApp";
 import AuthLayout from "./components/layout/auth";
+import FaqPage from "./pages/faq";
 
 //Router
 const router = createBrowserRouter([
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     element: <SalesPageLayout />,
     children: [
       { path: "/", element: <LandingPage /> },
-      { path: "/faq", element: <div>FAQ</div> },
+      { path: "/faq", element: <FaqPage /> },
     ],
   },
   { path: "/auth", element: <AuthLayout /> },
