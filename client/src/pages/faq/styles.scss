@@ -5,11 +5,12 @@
 
 .faq-page {
   &__title {
-    text-align: center;
+    text-align: start;
     padding: $padding-lg;
+    margin-bottom: calc($margin-lg * 2);
   }
   &__content {
-    min-height: 100vh;
+    height: 70vh;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
   }
@@ -18,17 +19,18 @@
     border-radius: $radius-sm;
     &--left {
       @extend .faq-page__layout-section;
-      grid-column-start: 1;
+      grid-column-start: 2;
       grid-column-end: 4;
     }
     &--right {
       @extend .faq-page__layout-section;
       grid-column-start: 4;
-      grid-column-end: 13;
+      grid-column-end: 12;
+      overflow-y: scroll;
+      padding: $padding-lg;
     }
   }
 }
-
 .theme {
   &--red {
     .faq-page {
@@ -36,8 +38,13 @@
       &__title {
         color: $chestnut-900;
       }
-      &__layout-section--left {
-        background-color: $chestnut-300;
+      &__layout-section {
+        &--right {
+          background-color: white;
+        }
+        &--left {
+          background-color: transparent;
+        }
       }
     }
   }
@@ -47,8 +54,13 @@
       &__title {
         color: $picton-blue-900;
       }
-      &__layout-section--left {
-        background-color: $picton-blue-300;
+      &__layout-section {
+        &--right {
+          background-color: white;
+        }
+        &--left {
+          background-color: transparent;
+        }
       }
     }
   }
@@ -58,8 +70,13 @@
       &__title {
         color: $yellow-green-900;
       }
-      &__layout-section--left {
-        background-color: $yellow-green-300;
+      &__layout-section {
+        &--right {
+          background-color: white;
+        }
+        &--left {
+          background-color: transparent;
+        }
       }
     }
   }

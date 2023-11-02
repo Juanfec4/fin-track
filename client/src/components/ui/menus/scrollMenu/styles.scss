@@ -1,0 +1,68 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.scroll-menu {
+  &__list {
+    top: 0;
+    top: 0;
+    list-style: none;
+    padding: $padding-lg 0;
+  }
+  &__list-item {
+    margin: 0;
+    padding: calc($padding-sm/2);
+  }
+  &__link {
+    font-style: normal;
+    font-weight: normal;
+    cursor: pointer;
+    &--active {
+      @extend .scroll-menu__link;
+      font-weight: bold;
+    }
+  }
+}
+
+.theme {
+  &--red {
+    .scroll-menu {
+      &__title {
+        color: $chestnut-900;
+      }
+      &__link:hover {
+        color: $chestnut-600;
+      }
+      &__link--active {
+        color: $chestnut-600;
+      }
+    }
+  }
+  &--blue {
+    .scroll-menu {
+      &__title {
+        color: $picton-blue-900;
+      }
+      &__link:hover {
+        color: $picton-blue-600;
+      }
+      &__link--active {
+        color: $picton-blue-600;
+      }
+    }
+  }
+  &--green {
+    .scroll-menu {
+      &__title {
+        color: $yellow-green-900;
+      }
+      &__link:hover {
+        color: $yellow-green-600;
+      }
+      &__link--active {
+        color: $yellow-green-600;
+      }
+    }
+  }
+}
