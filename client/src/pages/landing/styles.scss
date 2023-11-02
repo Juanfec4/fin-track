@@ -2,3 +2,33 @@
 @use "../../assets/styles/partials/responsive" as *;
 @use "../../assets/styles/partials/variables" as *;
 @use "../../assets/styles/partials/mixins" as *;
+
+.section-title {
+  text-align: center;
+}
+
+.feature-section {
+  margin: calc($margin-lg * 4) 0;
+}
+
+.cta-section {
+  margin: calc($margin-lg * 4) 0;
+}
+
+.theme {
+  &--red {
+    .section-title {
+      color: $chestnut-900;
+    }
+  }
+  &--blue {
+    .section-title {
+      color: $picton-blue-900;
+    }
+  }
+  &--green {
+    .section-title {
+      color: $yellow-green-900;
+    }
+  }
+}

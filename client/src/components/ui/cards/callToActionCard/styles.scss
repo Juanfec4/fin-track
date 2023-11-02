@@ -1,0 +1,60 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$max-width: calc(1000px - 3 * $padding-lg);
+.call-to-action {
+  display: flex;
+  max-width: $max-width;
+  margin: 0 auto;
+  border-radius: $radius-sm;
+  border: solid $border-sm;
+  padding: $padding-lg;
+  gap: $gap-lg;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    align-items: start;
+    justify-content: space-between;
+  }
+  &__image {
+    align-self: flex-end;
+  }
+  &__title {
+    max-width: 20ch;
+  }
+  &__text {
+    max-width: 60ch;
+  }
+}
+
+.theme {
+  &--red {
+    .call-to-action {
+      border-color: $chestnut-900;
+      &__title {
+        color: $chestnut-500;
+      }
+    }
+  }
+
+  &--blue {
+    .call-to-action {
+      border-color: $picton-blue-900;
+      &__title {
+        color: $picton-blue-500;
+      }
+    }
+  }
+
+  &--green {
+    .call-to-action {
+      border-color: $yellow-green-900;
+      &__title {
+        color: $yellow-green-500;
+      }
+    }
+  }
+}

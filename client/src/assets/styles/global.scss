@@ -8,3 +8,10 @@
   margin: 0;
   padding: 0;
 }
+
+.image-placeholder {
+  background-color: grey;
+  width: 200px;
+  height: 125px;
+  border-radius: $radius-sm;
+}
