@@ -1,6 +1,6 @@
 import { FC } from "react";
 import "./styles.scss";
-import Hero from "../../components/ui/header/hero";
+import Hero from "../../components/ui/pageComponents/hero";
 import WaveDivider from "../../components/ui/dividers/waveDivider";
 import FeatureGallery from "../../components/ui/galleries/featureGallery";
 

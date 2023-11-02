@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../ui/navigation/navbar";
+import Footer from "../../ui/pageComponents/footer";
 
 const SalesPageLayout: FC = () => {
   return (
@@ -15,6 +16,7 @@ const SalesPageLayout: FC = () => {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 };

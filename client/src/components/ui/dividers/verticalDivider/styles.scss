@@ -1,0 +1,28 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.vertical-divider {
+  width: $border-md;
+  min-height: 1px;
+  max-height: 100%;
+}
+
+.theme {
+  &--blue {
+    .vertical-divider {
+      background-color: $picton-blue-200;
+    }
+  }
+  &--green {
+    .vertical-divider {
+      background-color: $yellow-green-200;
+    }
+  }
+  &--red {
+    .vertical-divider {
+      background-color: $chestnut-200;
+    }
+  }
+}
