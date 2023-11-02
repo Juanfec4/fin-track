@@ -1,0 +1,20 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$max-width: 1000px;
+.feature-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__content {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap-lg;
+    margin: $margin-lg;
+    align-items: center;
+    justify-content: center;
+  }
+}

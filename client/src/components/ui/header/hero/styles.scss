@@ -21,6 +21,10 @@ $max-width: 1000px;
     gap: $gap-lg;
   }
   &__image-container {
+    display: none;
+    @include md {
+      display: block;
+    }
   }
   &__title {
     max-width: 30ch;
