@@ -5,7 +5,7 @@
 
 .faq-page {
   &__content {
-    height: 70vh;
+    height: 80vh;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
   }
@@ -14,15 +14,31 @@
     border-radius: $radius-sm;
     &--left {
       @extend .faq-page__layout-section;
-      grid-column-start: 2;
-      grid-column-end: 4;
+      display: none;
+      @include md {
+        display: block;
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+      @include lg {
+        grid-column-start: 2;
+        grid-column-end: 4;
+      }
     }
     &--right {
       @extend .faq-page__layout-section;
-      grid-column-start: 4;
-      grid-column-end: 12;
       overflow-y: scroll;
       padding: $padding-lg;
+      grid-column-start: 1;
+      grid-column-end: 13;
+      @include md {
+        grid-column-start: 4;
+        grid-column-end: 13;
+      }
+      @include lg {
+        grid-column-start: 4;
+        grid-column-end: 12;
+      }
     }
   }
   .faq-section {
