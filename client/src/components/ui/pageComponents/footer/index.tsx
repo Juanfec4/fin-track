@@ -1,6 +1,7 @@
 import { FC } from "react";
 import "./styles.scss";
 import VerticalDivider from "../../dividers/verticalDivider";
+import ThemeToggle from "../../buttons/themeToggle";
 const Footer: FC = () => {
   return (
     <footer className="footer">
@@ -20,6 +21,11 @@ const Footer: FC = () => {
             Juan Felipe is a web developer with some accounting experience,
             passionate about solving real problems.
           </p>
+        </div>
+        <VerticalDivider />
+        <div className="footer__container">
+          <p className="footer__text">Swap the current theme:</p>
+          <ThemeToggle />
         </div>
       </div>
     </footer>

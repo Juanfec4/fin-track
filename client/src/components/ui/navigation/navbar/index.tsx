@@ -37,7 +37,6 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
           text="Login"
           handleClick={() => navigator("/auth/login")}
         />
-        <ThemeToggle />
       </div>
     </nav>
   );
