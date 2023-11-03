@@ -6,9 +6,11 @@ import financePersonGreen from "../../../../assets/animations/finance-person-gre
 import financePersonBlue from "../../../../assets/animations/finance-person-blue.json";
 import SecondaryButton from "../../buttons/secondaryButton";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../../../hooks/useTheme";
 
 const Hero: FC = () => {
   const navigator = useNavigate();
+  const theme = useTheme();
   return (
     <section className="hero">
       <div className="hero__content">
@@ -25,7 +27,15 @@ const Hero: FC = () => {
           />
         </div>
         <Lottie
-          animationData={financePersonBlue}
+          animationData={
+            theme.color === "blue"
+              ? financePersonBlue
+              : theme.color === "green"
+              ? financePersonGreen
+              : theme.color === "red"
+              ? financePersonRed
+              : null
+          }
           className="hero__image-container"
         />
       </div>

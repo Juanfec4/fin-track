@@ -1,11 +1,15 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
+import { useTheme } from "../../../hooks/useTheme";
 
 const WebAppLayout: FC = () => {
+  const theme = useTheme();
   return (
-    <main>
-      <Outlet />
-    </main>
+    <div className={theme.className}>
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

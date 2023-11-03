@@ -1,0 +1,102 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$button-width: 50px;
+.theme-toggle {
+  margin: 0 $margin-md;
+  position: relative;
+  &__button {
+    width: $button-width;
+    padding: 0 $padding-sm;
+    border: none;
+    border-radius: $radius-sm;
+    &--active {
+      @extend .theme-toggle__button;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  &__list {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    list-style: none;
+    padding: calc($padding-sm/2);
+    border-bottom-left-radius: $radius-sm;
+    border-bottom-right-radius: $radius-sm;
+    margin: 0;
+  }
+  &__list-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  &__link {
+    font-size: 0.8rem;
+    padding: 0;
+    font-style: normal;
+    font-weight: normal;
+  }
+}
+
+.theme {
+  &--red {
+    .theme-toggle {
+      &__button {
+        background-color: $chestnut-50;
+        color: $chestnut-950;
+      }
+      &__list {
+        background-color: $chestnut-600;
+      }
+      &__list-item {
+        color: $chestnut-50;
+        &:hover {
+          color: $chestnut-950;
+          background-color: $chestnut-400;
+        }
+      }
+      &__text {
+        color: $chestnut-50;
+      }
+    }
+  }
+  &--blue {
+    .theme-toggle {
+      &__list {
+        background-color: $picton-blue-600;
+      }
+      &__list-item {
+        color: $picton-blue-50;
+        &:hover {
+          color: $picton-blue-950;
+          background-color: $picton-blue-400;
+        }
+      }
+      &__text {
+        color: $picton-blue-50;
+      }
+    }
+  }
+  &--green {
+    .theme-toggle {
+      &__list {
+        background-color: $yellow-green-600;
+      }
+      &__list-item {
+        color: $yellow-green-50;
+        &:hover {
+          color: $yellow-green-950;
+          background-color: $yellow-green-400;
+        }
+      }
+      &__text {
+        color: $yellow-green-50;
+      }
+    }
+  }
+}

@@ -7,6 +7,8 @@ import SalesPageLayout from "./components/layout/salesPage";
 import WebAppLayout from "./components/layout/webApp";
 import AuthLayout from "./components/layout/auth";
 import FaqPage from "./pages/faq";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 //Router
 const router = createBrowserRouter([
@@ -27,8 +29,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <div className="theme--green">
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </div>
+    </Provider>
   </React.StrictMode>
 );

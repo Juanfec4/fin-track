@@ -2,10 +2,12 @@ import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../ui/navigation/navbar";
 import Footer from "../../ui/pageComponents/footer";
+import { useTheme } from "../../../hooks/useTheme";
 
 const SalesPageLayout: FC = () => {
+  const theme = useTheme();
   return (
-    <>
+    <div className={theme.className}>
       <Navbar
         links={[
           { target: "/", text: "Home" },
@@ -17,7 +19,7 @@ const SalesPageLayout: FC = () => {
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
