@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+import { getFromSession } from "../utils/session";
 
-const axiosBaseConfig = {
+const axiosBaseConfig: AxiosRequestConfig = {
   withCredentials: true,
 };
 
@@ -19,6 +20,16 @@ interface LoginUserPayload {
 interface RefreshUserPayload {
   refreshToken: string;
 }
+
+//Custom config
+const buildAxiosConfig = (accessToken: string): AxiosRequestConfig => {
+  return {
+    ...axiosBaseConfig,
+    headers: {
+      authorization: accessToken,
+    },
+  };
+};
 
 //Register
 export const registerUser = async (payload: RegisterUserPayload) => {
