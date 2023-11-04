@@ -11,6 +11,7 @@ $button-width: 50px;
     padding: 0 $padding-sm;
     border: none;
     border-radius: $radius-sm;
+    cursor: pointer;
     &--active {
       @extend .theme-toggle__button;
       border-bottom-left-radius: 0;
