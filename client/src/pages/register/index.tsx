@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserStatus } from "../../hooks/useUserStatus";
 
 import "./styles.scss";
+import PopUpCard from "../../components/ui/cards/popUpCard";
 
 const RegisterPage: FC = () => {
   const [status, setStatus] = useState("");
@@ -13,12 +14,22 @@ const RegisterPage: FC = () => {
   useEffect(() => {
     if (isLoggedIn) navigator("/web-app");
   }, []);
+
+  useEffect(() => {
+    const statusTimeout = setTimeout(() => {
+      setStatus("");
+    }, 2000);
+
+    return () => {
+      clearTimeout(statusTimeout);
+    };
+  }, [status]);
   return (
     <div className="register-page">
       <RegisterForm
         setStatusMessage={(message: string) => setStatus(message)}
       />
-      {status || null}
+      {status ? <PopUpCard popUpMessage={status} /> : null}
     </div>
   );
 };

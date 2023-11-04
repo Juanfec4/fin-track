@@ -1,0 +1,43 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.pop-up {
+  position: absolute;
+  top: $margin-lg;
+  right: $margin-lg;
+  padding: $padding-lg;
+  border-radius: $radius-sm;
+  &__message {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+}
+
+.theme {
+  &--red {
+    .pop-up {
+      background-color: $chestnut-50;
+      &__message {
+        color: $chestnut-700;
+      }
+    }
+  }
+  &--blue {
+    .pop-up {
+      background-color: $picton-blue-50;
+      &__message {
+        color: $picton-blue-700;
+      }
+    }
+  }
+  &--green {
+    .pop-up {
+      background-color: $yellow-green-50;
+      &__message {
+        color: $yellow-green-700;
+      }
+    }
+  }
+}

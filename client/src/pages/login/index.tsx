@@ -3,6 +3,7 @@ import LoginForm from "../../components/ui/forms/loginForm";
 import { useUserStatus } from "../../hooks/useUserStatus";
 import { useNavigate } from "react-router-dom";
 import "./styles.scss";
+import PopUpCard from "../../components/ui/cards/popUpCard";
 const LoginPage: FC = () => {
   const [status, setStatus] = useState("");
   const isLoggedIn = useUserStatus();
@@ -11,10 +12,21 @@ const LoginPage: FC = () => {
   useEffect(() => {
     if (isLoggedIn) navigator("/web-app");
   }, []);
+
+  useEffect(() => {
+    const statusTimeout = setTimeout(() => {
+      setStatus("");
+    }, 2000);
+
+    return () => {
+      clearTimeout(statusTimeout);
+    };
+  }, [status]);
+
   return (
     <div className="login-page">
       <LoginForm setStatusMessage={(message: string) => setStatus(message)} />
-      {status || null}
+      {status ? <PopUpCard popUpMessage={status} /> : null}
     </div>
   );
 };
