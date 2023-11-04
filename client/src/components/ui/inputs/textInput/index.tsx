@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from "react";
-
+import "./styles.scss";
 export enum InputType {
   Text = "text",
   Password = "password",

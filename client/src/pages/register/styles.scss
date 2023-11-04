@@ -1,0 +1,27 @@
+@use "../../assets/styles/partials/colors" as *;
+@use "../../assets/styles/partials/responsive" as *;
+@use "../../assets/styles/partials/variables" as *;
+@use "../../assets/styles/partials/mixins" as *;
+
+.register-page {
+  display: flex;
+  height: 100vh;
+}
+
+.theme {
+  &--red {
+    .register-page {
+      background-color: $chestnut-950;
+    }
+  }
+  &--blue {
+    .register-page {
+      background-color: $picton-blue-950;
+    }
+  }
+  &--green {
+    .register-page {
+      background-color: $yellow-green-950;
+    }
+  }
+}

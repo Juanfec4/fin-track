@@ -1,0 +1,68 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &__label {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  &__field {
+    padding: $padding-sm;
+    border-radius: $radius-sm;
+    border: none;
+    outline: transparent;
+    font-size: 1rem;
+  }
+}
+.theme {
+  &--red {
+    .input {
+      &__label {
+        color: $chestnut-900;
+      }
+      &__field {
+        border-color: $chestnut-950;
+        background-color: $chestnut-100;
+        color: $chestnut-950;
+        &::placeholder {
+          color: $chestnut-700;
+        }
+      }
+    }
+  }
+  &--blue {
+    .input {
+      &__label {
+        color: $picton-blue-900;
+      }
+      &__field {
+        border-color: $picton-blue-950;
+        background-color: $picton-blue-100;
+        color: $picton-blue-950;
+        &::placeholder {
+          color: $picton-blue-700;
+        }
+      }
+    }
+  }
+  &--green {
+    .input {
+      &__label {
+        color: $yellow-green-900;
+      }
+      &__field {
+        border-color: $yellow-green-950;
+        background-color: $yellow-green-100;
+        color: $yellow-green-950;
+        &::placeholder {
+          color: $yellow-green-700;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$width: 350px;
+.register-form {
+  padding: $padding-lg;
+  width: $width;
+  margin: auto;
+  border: solid $border-sm;
+  border-radius: $radius-sm;
+  background-color: white;
+  &__title {
+    text-align: center;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin: $margin-lg 0;
+    gap: $gap-lg;
+  }
+  &__text a {
+    font-style: normal;
+  }
+}
+
+.theme {
+  &--red {
+    .register-form {
+      border-color: $chestnut-950;
+      &__title {
+        color: $chestnut-900;
+      }
+      &__text a {
+        color: $chestnut-500;
+      }
+    }
+  }
+  &--blue {
+    .register-form {
+      border-color: $picton-blue-950;
+      &__title {
+        color: $picton-blue-900;
+      }
+      &__text a {
+        color: $picton-blue-500;
+      }
+    }
+  }
+  &--green {
+    .register-form {
+      border-color: $yellow-green-950;
+      &__title {
+        color: $yellow-green-900;
+      }
+      &__text a {
+        color: $yellow-green-500;
+      }
+    }
+  }
+}

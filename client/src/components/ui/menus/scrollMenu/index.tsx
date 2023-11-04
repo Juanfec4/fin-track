@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from "react";
+import { FC, useState } from "react";
 import ScrollIntoView from "react-scroll-into-view";
 import "./styles.scss";
 type scrollLink = {
