@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import ip from "ip";
 
+//CORS
+import cors from "./middlewares/cors.middleware";
+
 //Middleware
 import authMiddleware from "./middlewares/auth.middleware";
 
@@ -14,6 +17,10 @@ import transactionRouter from "./routers/transaction.router";
 const port: string = process.env.PORT || "8080";
 const app = express();
 
+//Cors
+app.use(cors);
+
+//Json
 app.use(express.json());
 
 //Middlewares

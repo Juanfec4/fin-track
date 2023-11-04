@@ -113,7 +113,7 @@ const loginUser = async (req: Request, res: Response) => {
     .where({ email: email })
     .first();
 
-  if (!existingUser) return res.status(204).json("No user found.");
+  if (!existingUser) return res.status(404).json("No user found.");
 
   //Compare passwords to see if they match
   let hashedPassword = existingUser.password;
@@ -129,10 +129,7 @@ const loginUser = async (req: Request, res: Response) => {
   return res
     .status(200)
     .header("Authorization", token)
-    .cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      sameSite: "strict",
-    })
+    .header("Refresh", refreshToken)
     .json("Login successful.");
 };
 
