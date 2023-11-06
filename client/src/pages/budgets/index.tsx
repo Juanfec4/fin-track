@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import "./styles.scss";
 import HeadingLink from "../../components/ui/misc/headingLink";
-import BudgetForm from "../../components/ui/forms/budgetForm";
+import CreateBudgetForm from "../../components/ui/forms/createBudgetForm";
 import ScreenOverlay from "../../components/ui/misc/screenOverlay";
 import BudgetsGallery from "../../components/ui/galleries/budgetsGallery/index";
 
@@ -29,7 +29,9 @@ const BudgetsPage: FC = () => {
       <div className="budget-page__content-section">TRANSACTIONS</div>
       {showBudgetForm ? (
         <ScreenOverlay
-          children={<BudgetForm handleClose={() => setShowBudgetForm(false)} />}
+          children={
+            <CreateBudgetForm handleClose={() => setShowBudgetForm(false)} />
+          }
           handleClose={() => setShowBudgetForm(false)}
         />
       ) : null}

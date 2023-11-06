@@ -14,6 +14,8 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/store";
 import ScreenOverlay from "../../misc/screenOverlay";
 import DeleteBudgetCard from "../deleteBudgetCard";
 import { deleteBudgetById } from "../../../../services/apiService";
+import PopUpCard from "../popUpCard";
+import EditBudgetForm from "../../forms/editBudgetForm";
 
 interface BudgetCardProps {
   budget: Budget;
@@ -21,6 +23,7 @@ interface BudgetCardProps {
 
 const BudgetCard: FC<BudgetCardProps> = ({ budget }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showEditBudgetForm, setShowEditBudgetForm] = useState(false);
   const [status, setStatus] = useState("");
   const userToken = useAppSelector(
     (state) => state.user.loginInformation.accessToken
@@ -54,7 +57,7 @@ const BudgetCard: FC<BudgetCardProps> = ({ budget }) => {
         <IconButton
           tooltipText="Edit"
           icon={<IconPencil />}
-          handleClick={() => ""}
+          handleClick={() => setShowEditBudgetForm(true)}
         />
         <IconButton
           tooltipText="Delete"
@@ -71,6 +74,24 @@ const BudgetCard: FC<BudgetCardProps> = ({ budget }) => {
               />
             }
             handleClose={() => setShowDeleteConfirmation(false)}
+          />
+        ) : null}
+        {showEditBudgetForm ? (
+          <ScreenOverlay
+            children={
+              <EditBudgetForm
+                budgetId={budget.id}
+                originalBudgetName={budget.budget_name}
+                handleClose={() => setShowEditBudgetForm(false)}
+              />
+            }
+            handleClose={() => setShowEditBudgetForm(false)}
+          />
+        ) : null}
+        {status ? (
+          <PopUpCard
+            popUpMessage={status}
+            handleClearMessage={() => setStatus("")}
           />
         ) : null}
       </div>

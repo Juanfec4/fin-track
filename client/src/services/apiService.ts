@@ -66,6 +66,12 @@ export const getAllBudgets = async (accessToken: string) => {
   return axios.get(requestUrl, buildAxiosConfig(accessToken));
 };
 
+//Get user budget by id
+export const getBudgetById = async (accessToken: string, budgetId: number) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets/${budgetId}`;
+  return axios.get(requestUrl, buildAxiosConfig(accessToken));
+};
+
 //New budget
 export const createBudget = async (
   payload: NewBudgetPayload,

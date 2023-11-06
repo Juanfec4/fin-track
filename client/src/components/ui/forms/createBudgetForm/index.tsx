@@ -7,11 +7,11 @@ import { createBudget } from "../../../../services/apiService";
 import PopUpCard from "../../cards/popUpCard";
 import { fetchBudgets } from "../../../../redux/features/budgetSlice";
 
-interface BudgetFormProps {
+interface CreateBudgetFormProps {
   handleClose: () => void;
 }
 
-const BudgetForm: FC<BudgetFormProps> = ({ handleClose }) => {
+const CreateBudgetForm: FC<CreateBudgetFormProps> = ({ handleClose }) => {
   const [budgetName, setBudgetName] = useState("");
   const [status, setStatus] = useState("");
   const userToken = useAppSelector(
@@ -57,4 +57,4 @@ const BudgetForm: FC<BudgetFormProps> = ({ handleClose }) => {
     </>
   );
 };
-export default BudgetForm;
+export default CreateBudgetForm;
