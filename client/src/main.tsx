@@ -11,6 +11,9 @@ import AuthLayout from "./components/layout/auth";
 import FaqPage from "./pages/faq";
 import RegisterPage from "./pages/register";
 import LoginPage from "./pages/login";
+import BudgetsPage from "./pages/budgets";
+import DashboardPage from "./pages/dashboard";
+import TransactionsPage from "./pages/transactions";
 
 //Router
 const router = createBrowserRouter([
@@ -39,6 +42,20 @@ const router = createBrowserRouter([
   {
     path: "/web-app",
     element: <WebAppLayout />,
+    children: [
+      {
+        path: "/web-app",
+        element: <DashboardPage />,
+      },
+      {
+        path: "/web-app/budgets",
+        element: <BudgetsPage />,
+      },
+      {
+        path: "/web-app/transactions",
+        element: <TransactionsPage />,
+      },
+    ],
   },
 ]);
 

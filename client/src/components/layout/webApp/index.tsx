@@ -29,7 +29,7 @@ const WebAppLayout: FC = () => {
           <Sidebar
             links={[
               { target: "/", text: "Home", icon: IconHome },
-              { target: "/web-app", text: "Dashboard", icon: IconDashboard },
+              { target: "/web-app/", text: "Dashboard", icon: IconDashboard },
               {
                 target: "/web-app/budgets",
                 text: "Budgets",
