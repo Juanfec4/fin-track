@@ -25,11 +25,17 @@ interface NewBudgetPayload {
 }
 
 //Custom config
-const buildAxiosConfig = (accessToken: string): AxiosRequestConfig => {
+const buildAxiosConfig = (
+  accessToken: string,
+  customParams?: object
+): AxiosRequestConfig => {
   return {
     ...axiosBaseConfig,
     headers: {
       Authorization: accessToken,
+    },
+    params: {
+      ...customParams,
     },
   };
 };
@@ -54,6 +60,12 @@ export const refreshUser = async (payload: RefreshUserPayload) => {
 
 //BUDGETS
 
+//Get all user budgets
+export const getAllBudgets = async (accessToken: string) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets`;
+  return axios.get(requestUrl, buildAxiosConfig(accessToken));
+};
+
 //New budget
 export const createBudget = async (
   payload: NewBudgetPayload,
@@ -61,4 +73,13 @@ export const createBudget = async (
 ) => {
   const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets`;
   return axios.post(requestUrl, payload, buildAxiosConfig(accessToken));
+};
+
+//Delete budget
+export const deleteBudgetById = async (
+  accessToken: string,
+  budgetId: number
+) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets/${budgetId}`;
+  return axios.delete(requestUrl, buildAxiosConfig(accessToken));
 };

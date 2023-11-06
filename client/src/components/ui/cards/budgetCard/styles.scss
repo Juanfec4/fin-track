@@ -1,0 +1,72 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.budget-card {
+  padding: $padding-sm;
+  border: solid $border-sm;
+  border-radius: $radius-sm;
+  &__head-container {
+    display: flex;
+    align-items: center;
+    gap: $gap-sm;
+  }
+  &__title {
+    text-transform: capitalize;
+  }
+  &__code {
+    font-style: italic;
+    border-radius: $radius-sm;
+    padding: calc($padding-sm/2);
+    font-size: 90%;
+  }
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: $padding-sm;
+  }
+}
+
+.theme {
+  &--red {
+    .budget-card {
+      background-color: $chestnut-100;
+      border-color: $chestnut-900;
+      &__title {
+        color: $chestnut-700;
+      }
+      &__code {
+        color: $chestnut-50;
+        background-color: $chestnut-500;
+      }
+    }
+  }
+  &--blue {
+    .budget-card {
+      background-color: $picton-blue-100;
+      border-color: $picton-blue-900;
+      &__title {
+        color: $picton-blue-700;
+      }
+      &__code {
+        color: $picton-blue-50;
+        background-color: $picton-blue-500;
+      }
+    }
+  }
+  &--green {
+    .budget-card {
+      background-color: $yellow-green-100;
+      border-color: $yellow-green-900;
+      &__title {
+        color: $yellow-green-700;
+      }
+      &__code {
+        color: $yellow-green-50;
+        background-color: $yellow-green-500;
+      }
+    }
+  }
+}

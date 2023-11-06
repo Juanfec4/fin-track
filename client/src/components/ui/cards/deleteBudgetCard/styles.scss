@@ -1,0 +1,21 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.delete-budget-card {
+  padding: $padding-lg;
+  &__title {
+    text-align: center;
+  }
+  &__text {
+    margin: $margin-sm 0;
+    text-align: center;
+  }
+  &__actions {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: $gap-md;
+  }
+}

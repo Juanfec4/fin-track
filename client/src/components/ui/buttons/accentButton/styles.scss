@@ -1,0 +1,38 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.button {
+  &--accent {
+    @include buttonBase;
+    border: solid $border-sm;
+  }
+  &--accent:hover {
+    cursor: pointer;
+  }
+}
+
+.theme {
+  &--red {
+    .button--accent {
+      border-color: $chestnut-500;
+      background-color: $chestnut-50;
+      color: $chestnut-500;
+    }
+  }
+  &--blue {
+    .button--accent {
+      border-color: $picton-blue-500;
+      background-color: $picton-blue-50;
+      color: $picton-blue-500;
+    }
+  }
+  &--green {
+    .button--accent {
+      border-color: $yellow-green-500;
+      background-color: $yellow-green-50;
+      color: $yellow-green-500;
+    }
+  }
+}

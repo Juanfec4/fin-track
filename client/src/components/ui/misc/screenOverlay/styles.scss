@@ -11,11 +11,21 @@ $max-width: 1000px;
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
   &__close {
     cursor: pointer;
-    position: absolute;
-    top: $margin-lg;
-    right: $margin-lg;
+    border-radius: $radius-sm;
+    align-self: flex-end;
+    justify-self: end;
+    margin: $margin-lg;
+    @include md {
+      position: absolute;
+      margin: 0;
+      top: $margin-lg;
+      right: $margin-lg;
+    }
   }
   &__content {
     max-width: $max-width;
@@ -32,6 +42,7 @@ $max-width: 1000px;
       background-color: rgba($chestnut-950, 0.8);
       &__close {
         color: white;
+        background-color: $chestnut-950;
       }
     }
   }
@@ -40,6 +51,7 @@ $max-width: 1000px;
       background-color: rgba($picton-blue-950, 0.8);
       &__close {
         color: white;
+        background-color: $picton-blue-950;
       }
     }
   }
@@ -48,6 +60,7 @@ $max-width: 1000px;
       background-color: rgba($yellow-green-950, 0.8);
       &__close {
         color: white;
+        background-color: $yellow-green-950;
       }
     }
   }

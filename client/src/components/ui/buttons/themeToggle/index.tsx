@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from "react";
 import { useTheme } from "../../../../hooks/useTheme";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../../redux/store";
 import { changeTheme } from "../../../../redux/features/themeSlice";
 import { ThemeClass, ThemeColor } from "../../../../redux/features/themeSlice";
 import { capitalizeFirstLetter } from "../../../../utils/capitalize";
@@ -9,7 +9,7 @@ import "./styles.scss";
 const ThemeToggle: FC = () => {
   const [isActive, setIsActive] = useState(false);
   const theme = useTheme();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const themeOptions = useMemo(() => {
     const options = [];

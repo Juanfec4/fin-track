@@ -1,0 +1,60 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.icon-button {
+  position: relative;
+  &__button {
+    border: none;
+    background-color: transparent;
+    outline: transparent;
+    cursor: pointer;
+  }
+  &__tooltip {
+    display: none;
+    @include md {
+      display: block;
+      position: absolute;
+      width: max-content;
+      font-size: 90%;
+      z-index: 100;
+      color: white;
+      padding: calc($padding-sm/2);
+      border-radius: $radius-sm;
+      cursor: default;
+    }
+  }
+}
+.theme {
+  &--red {
+    .icon-button {
+      &__button {
+        color: $chestnut-500;
+      }
+      &__tooltip {
+        background-color: rgba($chestnut-900, 0.95);
+      }
+    }
+  }
+  &--blue {
+    .icon-button {
+      &__button {
+        color: $picton-blue-500;
+      }
+      &__tooltip {
+        background-color: rgba($picton-blue-900, 0.95);
+      }
+    }
+  }
+  &--green {
+    .icon-button {
+      &__button {
+        color: $yellow-green-500;
+      }
+      &__tooltip {
+        background-color: rgba($yellow-green-900, 0.95);
+      }
+    }
+  }
+}
