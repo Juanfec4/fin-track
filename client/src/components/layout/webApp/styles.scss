@@ -1,0 +1,82 @@
+@use "../../../assets/styles/partials/colors" as *;
+@use "../../../assets/styles/partials/responsive" as *;
+@use "../../../assets/styles/partials/variables" as *;
+@use "../../../assets/styles/partials/mixins" as *;
+
+.web-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: $gap-lg;
+  &__container {
+    &--left {
+      @extend .web-app__container;
+      grid-column-start: 1;
+      grid-column-end: 2;
+      @include md {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+      @include lg {
+        grid-column-start: 1;
+        grid-column-end: 5;
+      }
+    }
+    &--right {
+      @extend .web-app__container;
+      padding: $padding-lg;
+      margin: $margin-lg;
+      border-radius: $radius-sm;
+      grid-column-start: 2;
+      grid-column-end: 25;
+      @include md {
+        grid-column-start: 2;
+        grid-column-end: 25;
+      }
+      @include lg {
+        grid-column-start: 5;
+        grid-column-end: 25;
+      }
+    }
+  }
+}
+// Check different styles
+
+.theme {
+  &--red {
+    .web-app {
+      &__container {
+        &--left {
+          background-color: $chestnut-900;
+        }
+        &--right {
+          background-color: white;
+        }
+      }
+    }
+  }
+  &--blue {
+    .web-app {
+      &__container {
+        &--left {
+          background-color: $picton-blue-900;
+        }
+        &--right {
+          background-color: white;
+        }
+      }
+    }
+  }
+  &--green {
+    .web-app {
+      &__container {
+        &--left {
+          background-color: $yellow-green-900;
+        }
+        &--right {
+          background-color: white;
+        }
+      }
+    }
+  }
+}

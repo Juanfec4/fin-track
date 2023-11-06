@@ -1,0 +1,80 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$font-size: 1rem;
+
+.side-nav {
+  padding: $padding-lg;
+  &__menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__menu-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: $gap-lg;
+  }
+  &__menu-item {
+    padding: $padding-sm;
+    display: flex;
+    align-items: end;
+    gap: $gap-sm;
+    @extend .side-nav__menu-link;
+  }
+  &__menu-link {
+    text-decoration: none;
+    font-style: normal;
+    font-size: $font-size;
+  }
+  &__menu-link--active {
+    @extend .side-nav__menu-link;
+    text-decoration: underline;
+  }
+  svg {
+    vertical-align: bottom;
+    margin-right: $margin-sm;
+  }
+  &__link-text {
+    display: none;
+    @include lg {
+      display: inline;
+    }
+  }
+}
+
+.theme {
+  &--red {
+    .side-nav {
+      &__menu-link {
+        color: $chestnut-50;
+        &--active {
+          color: $chestnut-500;
+        }
+      }
+    }
+  }
+  &--green {
+    .side-nav {
+      &__menu-link {
+        color: $yellow-green-50;
+        &--active {
+          color: $yellow-green-500;
+        }
+      }
+    }
+  }
+  &--blue {
+    .side-nav {
+      &__menu-link {
+        color: $picton-blue-50;
+        &--active {
+          color: $picton-blue-500;
+        }
+      }
+    }
+  }
+}
