@@ -22,7 +22,7 @@ const getUserBudgets = async (req: Request, res: Response) => {
       .select("id", "budget_name", "uuid")
       .whereIn("id", budgetIds);
 
-    return res.status(302).json(budgets);
+    return res.status(200).json(budgets);
   } catch (e) {
     return res.status(500).json("Server error.");
   }
