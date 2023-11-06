@@ -14,6 +14,7 @@ import LoginPage from "./pages/login";
 import BudgetsPage from "./pages/budgets";
 import DashboardPage from "./pages/dashboard";
 import TransactionsPage from "./pages/transactions";
+import NewBudgetPage from "./pages/newBudget";
 
 //Router
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/web-app/budgets",
         element: <BudgetsPage />,
+      },
+      {
+        path: "/web-app/budgets/new",
+        element: <NewBudgetPage />,
       },
       {
         path: "/web-app/transactions",

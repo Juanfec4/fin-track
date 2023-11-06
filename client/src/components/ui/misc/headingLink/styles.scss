@@ -1,0 +1,56 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.link-heading {
+  &__link {
+    font-style: normal;
+    font-weight: lighter;
+  }
+  &__separator {
+    font-weight: lighter;
+  }
+}
+
+.theme {
+  &--red {
+    .link-heading {
+      &__text {
+        color: $chestnut-900;
+      }
+      &__link {
+        color: $chestnut-600;
+      }
+      &__separator {
+        color: $chestnut-950;
+      }
+    }
+  }
+  &--blue {
+    .link-heading {
+      &__text {
+        color: $picton-blue-900;
+      }
+      &__link {
+        color: $picton-blue-600;
+      }
+      &__separator {
+        color: $picton-blue-950;
+      }
+    }
+  }
+  &--green {
+    .link-heading {
+      &__text {
+        color: $yellow-green-900;
+      }
+      &__link {
+        color: $yellow-green-600;
+      }
+      &__separator {
+        color: $yellow-green-950;
+      }
+    }
+  }
+}

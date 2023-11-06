@@ -1,0 +1,17 @@
+@use "../../assets/styles/partials/colors" as *;
+@use "../../assets/styles/partials/responsive" as *;
+@use "../../assets/styles/partials/variables" as *;
+@use "../../assets/styles/partials/mixins" as *;
+
+.budget-page {
+  &__title-section {
+    padding: $padding-lg;
+  }
+  &__top-section {
+    padding: $padding-lg;
+  }
+  &__content-section {
+    padding: $padding-lg;
+    margin: $margin-lg 0;
+  }
+}
