@@ -1,17 +1,16 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import "./styles.scss";
 
 interface HeadingLinkProps {
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  target: string;
   linkText: string;
   titleText: string;
+  handleClick: () => void;
 }
 
 const HeadingLink: FC<HeadingLinkProps> = ({
   tag,
-  target,
+  handleClick,
   linkText,
   titleText,
 }) => {
@@ -20,9 +19,9 @@ const HeadingLink: FC<HeadingLinkProps> = ({
     <HeadingTag className="link-heading">
       <span className="link-heading__text">{titleText}</span>
       <span className="link-heading__separator">|</span>
-      <Link to={target} className="link-heading__link">
+      <a onClick={handleClick} className="link-heading__link">
         {linkText}
-      </Link>
+      </a>
     </HeadingTag>
   );
 };

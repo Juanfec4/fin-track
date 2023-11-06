@@ -1,0 +1,54 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+$max-width: 1000px;
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    top: $margin-lg;
+    right: $margin-lg;
+  }
+  &__content {
+    max-width: $max-width;
+    margin: $margin-lg auto;
+    background-color: white;
+    padding: $padding-lg;
+    border-radius: $radius-sm;
+  }
+}
+
+.theme {
+  &--red {
+    .overlay {
+      background-color: rgba($chestnut-950, 0.8);
+      &__close {
+        color: white;
+      }
+    }
+  }
+  &--blue {
+    .overlay {
+      background-color: rgba($picton-blue-950, 0.8);
+      &__close {
+        color: white;
+      }
+    }
+  }
+  &--green {
+    .overlay {
+      background-color: rgba($yellow-green-950, 0.8);
+      &__close {
+        color: white;
+      }
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getFromSession } from "../utils/session";
 
 const axiosBaseConfig: AxiosRequestConfig = {
   withCredentials: true,
@@ -21,12 +20,16 @@ interface RefreshUserPayload {
   refreshToken: string;
 }
 
+interface NewBudgetPayload {
+  budgetName: string;
+}
+
 //Custom config
 const buildAxiosConfig = (accessToken: string): AxiosRequestConfig => {
   return {
     ...axiosBaseConfig,
     headers: {
-      authorization: accessToken,
+      Authorization: accessToken,
     },
   };
 };
@@ -47,4 +50,15 @@ export const loginUser = async (payload: LoginUserPayload) => {
 export const refreshUser = async (payload: RefreshUserPayload) => {
   const requestUrl = `${import.meta.env.VITE_API_BASE}/auth/refresh`;
   return axios.post(requestUrl, payload, { ...axiosBaseConfig });
+};
+
+//BUDGETS
+
+//New budget
+export const createBudget = async (
+  payload: NewBudgetPayload,
+  accessToken: string
+) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets`;
+  return axios.post(requestUrl, payload, buildAxiosConfig(accessToken));
 };

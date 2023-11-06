@@ -15,21 +15,17 @@ const RegisterPage: FC = () => {
     if (isLoggedIn) navigator("/web-app");
   }, []);
 
-  useEffect(() => {
-    const statusTimeout = setTimeout(() => {
-      setStatus("");
-    }, 2000);
-
-    return () => {
-      clearTimeout(statusTimeout);
-    };
-  }, [status]);
   return (
     <div className="register-page">
       <RegisterForm
         setStatusMessage={(message: string) => setStatus(message)}
       />
-      {status ? <PopUpCard popUpMessage={status} /> : null}
+      {status ? (
+        <PopUpCard
+          popUpMessage={status}
+          handleClearMessage={() => setStatus("")}
+        />
+      ) : null}
     </div>
   );
 };
