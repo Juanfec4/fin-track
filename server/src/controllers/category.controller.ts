@@ -76,7 +76,7 @@ const getAllBudgetCategories = async (req: Request, res: Response) => {
     const budgetCategories = await knex("categories").where({
       budget_id: budgetId,
     });
-    return res.status(302).json(budgetCategories);
+    return res.status(200).json(budgetCategories);
   } catch (e) {
     return res.status(500).json("Server error.");
   }
