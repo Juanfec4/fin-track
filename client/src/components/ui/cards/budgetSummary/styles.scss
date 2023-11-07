@@ -1,0 +1,31 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.budget-summary {
+  border: solid $border-sm;
+  border-radius: $radius-sm;
+  padding: $padding-lg;
+  margin: $margin-lg 0;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.theme {
+  &--red {
+    .budget-summary {
+      border-color: $chestnut-600;
+    }
+  }
+  &--green {
+    .budget-summary {
+      border-color: $yellow-green-600;
+    }
+  }
+  &--blue {
+    .budget-summary {
+      border-color: $picton-blue-600;
+    }
+  }
+}

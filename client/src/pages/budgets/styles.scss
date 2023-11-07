@@ -15,3 +15,27 @@
     margin: $margin-lg 0;
   }
 }
+
+.theme {
+  &--red {
+    .budget-page {
+      &__section-title {
+        color: $chestnut-700;
+      }
+    }
+  }
+  &--blue {
+    .budget-page {
+      &__section-title {
+        color: $picton-blue-700;
+      }
+    }
+  }
+  &--green {
+    .budget-page {
+      &__section-title {
+        color: $yellow-green-700;
+      }
+    }
+  }
+}

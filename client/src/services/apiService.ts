@@ -24,6 +24,13 @@ interface NewBudgetPayload {
   budgetName: string;
 }
 
+interface NewCategoryPayload {
+  budgetId: number;
+  type: string;
+  categoryName: string;
+  allocatedAmount: number;
+}
+
 //Custom config
 const buildAxiosConfig = (
   accessToken: string,
@@ -102,4 +109,24 @@ export const editBudgetById = async (
     { budget_name: payload.budgetName },
     buildAxiosConfig(accessToken)
   );
+};
+
+//CATEGORIES
+
+//get all
+export const getCategoriesForBudget = async (
+  accessToken: string,
+  budgetId: number
+) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/categories/`;
+  return axios.get(requestUrl, buildAxiosConfig(accessToken, { budgetId }));
+};
+
+//create new
+export const createCategory = async (
+  accessToken: string,
+  payload: NewCategoryPayload
+) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/categories/`;
+  return axios.post(requestUrl, payload, buildAxiosConfig(accessToken));
 };

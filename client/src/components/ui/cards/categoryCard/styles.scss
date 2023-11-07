@@ -1,0 +1,60 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.category-card {
+  margin-bottom: 0;
+  display: flex;
+  &__text-container {
+    padding: calc($padding-sm/2);
+    display: flex;
+    min-width: 300px;
+    width: 30%;
+    justify-content: space-between;
+  }
+  &__action-container {
+    display: flex;
+    margin: calc($padding-sm/2);
+    gap: $gap-sm;
+    align-items: center;
+    border-radius: $radius-sm;
+  }
+  &__name {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  &__amount {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.theme {
+  &--red {
+    .category-card {
+      &__text-container {
+        background-color: $chestnut-100;
+      }
+    }
+  }
+  &--green {
+    .category-card {
+      &__text-container {
+        background-color: $yellow-green-100;
+      }
+    }
+  }
+  &--blue {
+    .category-card {
+      &__text-container {
+        background-color: $picton-blue-100;
+      }
+      &__action-container {
+        background-color: $picton-blue-100;
+      }
+    }
+  }
+}
