@@ -3,7 +3,7 @@ import Input, { InputType } from "../../inputs/textInput";
 import PrimaryButton from "../../buttons/primaryButton";
 import "./styles.scss";
 import { useAppDispatch, useAppSelector } from "../../../../redux/store";
-import { createBudget, getBudgetById } from "../../../../services/apiService";
+import { editBudgetById } from "../../../../services/apiService";
 import PopUpCard from "../../cards/popUpCard";
 import { fetchBudgets } from "../../../../redux/features/budgetSlice";
 
@@ -27,10 +27,15 @@ const EditBudgetForm: FC<EditBudgetFormProps> = ({
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //TODO:
-    //Post new budget name
-    //Re-fetch
-    setTimeout(() => handleClose(), 1000);
+    editBudgetById(userToken, budgetId, { budgetName })
+      .then((response) => {
+        setStatus(`Renamed budget to :${response.data.budget_name}`);
+        dispatch(fetchBudgets(userToken));
+        handleClose();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

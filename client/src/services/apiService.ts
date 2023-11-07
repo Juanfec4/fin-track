@@ -89,3 +89,17 @@ export const deleteBudgetById = async (
   const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets/${budgetId}`;
   return axios.delete(requestUrl, buildAxiosConfig(accessToken));
 };
+
+//Edit budget
+export const editBudgetById = async (
+  accessToken: string,
+  budgetId: number,
+  payload: NewBudgetPayload
+) => {
+  const requestUrl = `${import.meta.env.VITE_API_BASE}/api/budgets/${budgetId}`;
+  return axios.patch(
+    requestUrl,
+    { budget_name: payload.budgetName },
+    buildAxiosConfig(accessToken)
+  );
+};
