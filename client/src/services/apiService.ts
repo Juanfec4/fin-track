@@ -130,3 +130,15 @@ export const createCategory = async (
   const requestUrl = `${import.meta.env.VITE_API_BASE}/api/categories/`;
   return axios.post(requestUrl, payload, buildAxiosConfig(accessToken));
 };
+
+//delete
+export const deleteCategory = async (
+  accessToken: string,
+  budgetId: number,
+  categoryId: number
+) => {
+  const requestUrl = `${
+    import.meta.env.VITE_API_BASE
+  }/api/categories/${categoryId}`;
+  return axios.delete(requestUrl, buildAxiosConfig(accessToken, { budgetId }));
+};

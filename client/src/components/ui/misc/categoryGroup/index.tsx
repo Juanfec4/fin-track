@@ -26,33 +26,35 @@ const CategoryGroup: FC<CategoryGroupProps> = ({
     return sum;
   };
   return (
-    <div className="category-group">
-      <HeadingLink
-        tag="h4"
-        titleText={title}
-        linkText="add"
-        handleClick={() => handleNew(type)}
-      />
-      <div className="category-group__content">
-        <div className="category-group__content-title">
-          <h6 className="category-group__header">Category name</h6>
-          <h6 className="category-card__header">Monthly amount</h6>
+    <>
+      <div className="category-group">
+        <HeadingLink
+          tag="h4"
+          titleText={title}
+          linkText="add"
+          handleClick={() => handleNew(type)}
+        />
+        <div className="category-group__content">
+          <div className="category-group__content-title">
+            <h6 className="category-group__header">Category name</h6>
+            <h6 className="category-card__header">Monthly amount</h6>
+          </div>
+          {categories.map((category) => {
+            return category.type === type ? (
+              <CategoryCard key={category.id} category={category} />
+            ) : null;
+          })}
         </div>
-        {categories.map((category) => {
-          return category.type === type ? (
-            <CategoryCard key={category.id} category={category} />
-          ) : null;
-        })}
+        <div className="category-group__total">
+          <p className="category-group__total-source">
+            Total {title.toLowerCase()}:
+          </p>
+          <p className="category-group__total-source">
+            ${getTotal(categories).toLocaleString()}
+          </p>
+        </div>
       </div>
-      <div className="category-group__total">
-        <p className="category-group__total-source">
-          Total {title.toLowerCase()}:
-        </p>
-        <p className="category-group__total-source">
-          ${getTotal(categories).toLocaleString()}
-        </p>
-      </div>
-    </div>
+    </>
   );
 };
 export default CategoryGroup;

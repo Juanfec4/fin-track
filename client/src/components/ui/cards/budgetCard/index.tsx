@@ -35,12 +35,12 @@ const BudgetCard: FC<BudgetCardProps> = ({ budget }) => {
     deleteBudgetById(userToken, budget.id)
       .then((response) => {
         setStatus(response.data);
-        dispatch(fetchBudgets(userToken));
-        setTimeout(() => setShowDeleteConfirmation(false), 1000);
       })
       .catch((error) => {
         setStatus(error.response.data);
-      });
+      })
+      .finally(() => dispatch(fetchBudgets(userToken)));
+    setShowDeleteConfirmation(false);
   };
   return (
     <div className="budget-card">

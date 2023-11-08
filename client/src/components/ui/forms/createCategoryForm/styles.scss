@@ -1,0 +1,38 @@
+@use "../../../../assets/styles/partials/colors" as *;
+@use "../../../../assets/styles/partials/responsive" as *;
+@use "../../../../assets/styles/partials/variables" as *;
+@use "../../../../assets/styles/partials/mixins" as *;
+
+.new-category-form {
+  padding: $padding-lg;
+  margin: auto;
+  border-radius: $radius-sm;
+  &__title {
+    text-align: center;
+  }
+  &__content {
+    margin: 0 auto;
+    display: flex;
+    align-items: end;
+    padding: $padding-lg;
+    gap: $gap-lg;
+  }
+}
+
+.theme {
+  &--red {
+    .new-category-form__title {
+      color: $chestnut-900;
+    }
+  }
+  &--blue {
+    .new-category-form__title {
+      color: $picton-blue-900;
+    }
+  }
+  &--green {
+    .new-category-form__title {
+      color: $yellow-green-900;
+    }
+  }
+}
