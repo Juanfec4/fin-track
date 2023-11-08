@@ -31,6 +31,12 @@ interface NewCategoryPayload {
   allocatedAmount: number;
 }
 
+interface EditCategoryPayload {
+  budgetId: number;
+  categoryName: string;
+  allocatedAmount?: number;
+}
+
 //Custom config
 const buildAxiosConfig = (
   accessToken: string,
@@ -141,4 +147,16 @@ export const deleteCategory = async (
     import.meta.env.VITE_API_BASE
   }/api/categories/${categoryId}`;
   return axios.delete(requestUrl, buildAxiosConfig(accessToken, { budgetId }));
+};
+
+//edit category
+export const editCategory = async (
+  accessToken: string,
+  categoryId: number,
+  payload: EditCategoryPayload
+) => {
+  const requestUrl = `${
+    import.meta.env.VITE_API_BASE
+  }/api/categories/${categoryId}`;
+  return axios.patch(requestUrl, payload, buildAxiosConfig(accessToken));
 };

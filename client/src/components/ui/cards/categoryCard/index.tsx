@@ -9,20 +9,23 @@ import { IconTrash } from "@tabler/icons-react";
 import { IconPencil } from "@tabler/icons-react";
 import ScreenOverlay from "../../misc/screenOverlay";
 import DeleteCategoryCard from "../deleteCategoryCard";
-import { deleteCategory } from "../../../../services/apiService";
+import { deleteCategory, editCategory } from "../../../../services/apiService";
 import { useAppDispatch, useAppSelector } from "../../../../redux/store";
 import PopUpCard from "../popUpCard";
+import EditCategoryForm from "../../forms/editCategoryForm";
 interface CategoryCardProps {
   category: Category;
 }
 const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showEditCategoryForm, setShowEditCategoryForm] = useState(false);
   const [status, setStatus] = useState("");
   const userToken = useAppSelector(
     (state) => state.user.loginInformation.accessToken
   );
   const budgetId = useAppSelector((state) => state.budget.activeId);
   const dispatch = useAppDispatch();
+
   const handleDelete = () => {
     if (budgetId) {
       deleteCategory(userToken, budgetId, category.id)
@@ -38,6 +41,27 @@ const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
     }
     setShowDeleteConfirmation(false);
   };
+
+  const handleEdit = (categoryName: string, allocatedAmount?: number) => {
+    if (budgetId) {
+      editCategory(userToken, category.id, {
+        budgetId,
+        categoryName,
+        allocatedAmount,
+      })
+        .then((response) => {
+          setStatus(response.statusText);
+        })
+        .catch((error) => {
+          setStatus(error.response.data);
+        })
+        .finally(() => {
+          dispatch(fetchCategories({ accessToken: userToken, budgetId }));
+        });
+    }
+    setShowEditCategoryForm(false);
+  };
+
   return (
     <>
       <div className="category-card">
@@ -51,7 +75,7 @@ const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
           <IconButton
             icon={<IconPencil />}
             tooltipText="Edit"
-            handleClick={() => ""}
+            handleClick={() => setShowEditCategoryForm(true)}
           />
           <IconButton
             icon={<IconTrash />}
@@ -69,6 +93,18 @@ const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
               handleCancel={() => setShowDeleteConfirmation(false)}
               categoryType={category.type}
               categoryName={category.category_name}
+            />
+          }
+        />
+      ) : null}
+      {showEditCategoryForm ? (
+        <ScreenOverlay
+          handleClose={() => setShowEditCategoryForm(false)}
+          children={
+            <EditCategoryForm
+              handleEdit={handleEdit}
+              oldAmount={category.allocated_amount}
+              oldCategoryName={category.category_name}
             />
           }
         />

@@ -3,6 +3,7 @@ import "./styles.scss";
 export enum InputType {
   Text = "text",
   Password = "password",
+  Number = "number",
 }
 interface TextInputProps {
   fieldName: string;

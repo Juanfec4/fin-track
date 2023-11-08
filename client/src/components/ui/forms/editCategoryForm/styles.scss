@@ -3,7 +3,7 @@
 @use "../../../../assets/styles/partials/variables" as *;
 @use "../../../../assets/styles/partials/mixins" as *;
 
-.edit-budget-form {
+.edit-category-form {
   padding: $padding-lg;
   margin: auto;
   border-radius: $radius-sm;
@@ -21,17 +21,17 @@
 
 .theme {
   &--red {
-    .edit-budget-form__title {
+    .edit-category-form__title {
       color: $chestnut-900;
     }
   }
   &--blue {
-    .edit-budget-form__title {
+    .edit-category-form__title {
       color: $picton-blue-900;
     }
   }
   &--green {
-    .edit-budget-form__title {
+    .edit-category-form__title {
       color: $yellow-green-900;
     }
   }

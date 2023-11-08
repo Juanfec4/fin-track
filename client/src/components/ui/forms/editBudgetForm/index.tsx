@@ -44,9 +44,9 @@ const EditBudgetForm: FC<EditBudgetFormProps> = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="new-budget-form">
-        <h1 className="new-budget-form__title">Edit Budget</h1>
-        <div className="new-budget-form__content">
+      <form onSubmit={handleSubmit} className="edit-budget-form">
+        <h1 className="edit-budget-form__title">Edit Budget</h1>
+        <div className="edit-budget-form__content">
           <Input
             fieldName="budget-name"
             placeholder="name"
