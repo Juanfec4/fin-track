@@ -10,6 +10,7 @@ A Full stack application that lets users create custom budgets, manage users, an
 - [Roadmap (TO DO)](https://github.com/Juanfec4/fin-track/tree/main#roadmap-to-do)
 - [Enviroment variables](https://github.com/Juanfec4/fin-track/tree/main#environment-variables)
 - [Run locally](https://github.com/Juanfec4/fin-track/tree/main#run-locally-development-mode)
+- [API Documentation](https://github.com/Juanfec4/fin-track#api-documentation)
 
 ## Badges
 
