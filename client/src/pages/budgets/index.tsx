@@ -51,7 +51,7 @@ const BudgetsPage: FC = () => {
         <HeadingLink
           tag="h2"
           titleText="Budgets"
-          linkText="create new"
+          linkText="new"
           handleClick={() => {
             setShowBudgetForm(true);
           }}
@@ -67,7 +67,14 @@ const BudgetsPage: FC = () => {
         </h4>
         <BudgetSummaryCard />
       </div>
-      <div className="budget-page__content-section">TRANSACTIONS</div>
+      <div className="budget-page__content-section">
+        <HeadingLink
+          tag="h2"
+          titleText="Transactions"
+          linkText="new"
+          handleClick={() => ""}
+        />
+      </div>
       {showBudgetForm ? (
         <ScreenOverlay
           children={
