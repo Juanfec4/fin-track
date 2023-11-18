@@ -175,3 +175,220 @@ Start application
 ```bash
   npm run dev
 ```
+
+# API Documentation
+
+## Budgets
+
+#### 1. Get by ID
+
+- **Endpoint:** `http://192.168.31.20:8080/api/budgets/:id`
+- **Method:** GET
+- **Description:** Get budget by id.
+- **Headers:**
+  - Authorization: `KEY`
+
+#### 2. Get all
+
+- **Endpoint:** `http://192.168.31.20:8080/api/budgets`
+- **Method:** GET
+- **Description:** Get all budgets.
+- **Headers:**
+  - Authorization: `KEY`
+
+#### 3. Create new
+
+- **Endpoint:** `http://192.168.31.20:8080/api/budgets`
+- **Method:** POST
+- **Description:** Create new budget.
+- **Headers:**
+  - Content-Type: `application/json`
+  - Authorization: `KEY`
+- **Body:**
+  ```json
+  {
+    "budgetName": <string>
+  }
+  ```
+
+## Auth
+
+#### 1. Refresh
+
+- **Endpoint:** `http://192.168.31.20:8080/auth/refresh`
+- **Method:** POST
+- **Description:** Refresh token handling.
+- **Body:**
+  ```json
+  {
+    "refreshToken": <TOKEN>
+  }
+  ```
+
+#### 2. Login
+
+- **Endpoint:** `http://192.168.31.20:8080/auth/login`
+- **Method:** POST
+- **Description:** Login user.
+- **Body:**
+  ```json
+  {
+    "email": <string>,
+    "password": <string>
+  }
+  ```
+- **Response (Headers):**
+  ```json
+  {
+    "Authorization": <TOKEN>,
+    "RefreshToken": <TOKEN>
+  }
+  ```
+
+#### 3. Register
+
+- **Endpoint:** `http://192.168.31.20:8080/auth/register`
+- **Method:** POST
+- **Description:** Create user account.
+- **Body:**
+  ```json
+  {
+      "username": <string>,
+      "email": <string>,
+      "password": <string>
+  }
+  ```
+
+## Categories
+
+#### 1. Create new
+
+- **Endpoint:** `http://192.168.31.20:8080/api/categories`
+- **Method:** POST
+- **Description:** Create a new category.
+- **Headers:**
+  - Authorization: `<TOKEN>`
+- **Body:**
+  ```json
+  {
+    "budgetId": <number>,
+    "type": <string>,
+    "categoryName": <string>,
+    "allocatedAmount": <number>
+  }
+  ```
+
+#### 2. Update
+
+- **Endpoint:** `http://192.168.31.20:8080/api/categories/:id`
+- **Method:** PATCH
+- **Description:** Update category.
+- **Headers:**
+
+  - Authorization: `<TOKEN>`
+
+- **Body:**
+  ```json
+  {
+      "budgetId": <number>,
+      "categoryName": <string>,
+      "allocatedAmount": <number>
+  }
+  ```
+
+#### 3. Get all (for budget)
+
+- **Endpoint:** `http://192.168.31.20:8080/api/categories`
+- **METHOD:** GET
+- **Description:** Get all categories for a budget.
+- **Parameters:**
+  - budgetId: `<number>`
+- **Headers:**
+  - Authorization: `<TOKEN>`
+
+#### 4. Get by id (for budget)
+
+- **Endpoint:** `http://192.168.31.20:8080/api/categories/:id`
+- **Method:** GET
+- **Description:** Get a single category by id within a specific budget.
+- **Parameters:**
+  - budgetId: `<number>`
+- **Headers:**
+  - Authorization: `<TOKEN>`
+
+#### 5. Delete by id (for budget)
+
+- **Endpoint:** `http://192.168.31.20:8080/api/categories/:id`
+- **Method:** DELETE
+- **Description:** Delete a budget category.
+- **Parameters:**
+  - budgetId: `<number>`
+- **Headers:**
+  - Authorization: `<TOKEN>`
+
+## Transactions
+
+#### 1. Create new
+
+- **Endpoint:** `http://192.168.31.20:8080/api/transactions`
+- **Method:** POST
+- **Description:** Create a new transaction.
+- **Headers:**
+  - Authorization: `<TOKEN>`
+- **Body:**
+  ```json
+  {
+      "budgetId": <number>,
+      "categoryId": <number>,
+      "amount": <number>,
+      "description": <string>
+  }
+  ```
+
+#### 2. Update
+
+- **Endpoint:** `http://192.168.31.20:8080/api/transactions/:id`
+- **Method:** PATCH
+- **Description:** Update a transaction.
+- **Headers:**
+  - Authorization: `<TOKEN>`
+- **Body:**
+  ```json
+  {
+      "budgetId": <number>,
+      "categoryId": <number>,
+      "amount": <number>,
+      "description": <string>
+  }
+  ```
+
+#### 3. Get all
+
+- **Endpoint:** `http://192.168.31.20:8080/api/transactions`
+- **Method:** GET
+- **Description:** Get all transaction for budget & category.
+- **Parameters:**
+  - budgetId: `<number>`
+  - categoryId: `<number>`
+- **Headers:**
+  - Authorization: `<TOKEN>`
+
+#### 4. Get by id
+
+- **Endpoint:** `http://192.168.31.20:8080/api/transactions/:id`
+- **Method:** GET
+- **Description:** Get transaction by id.
+- **Parameters:**
+    - budgetId: `<number>`
+- **Headers:**
+  - Authorization: `<TOKEN>`
+
+#### 5. Delete
+
+- **Endpoint:** `http://192.168.31.20:8080/api/transactions/:id`\
+- **Method:** DELETE
+- **Description:** Delete transaction.
+- **Parameters:**
+    - budgetId: `<number>`
+- **Headers:**
+  - Authorization: `<TOKEN>`
