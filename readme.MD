@@ -2,6 +2,17 @@
 
 A Full stack application that lets users create custom budgets, manage users, and keep track of transactions.
 
+#### Contents
+
+- [Badges](https://github.com/Juanfec4/fin-track/tree/main#badges)
+- [Features](https://github.com/Juanfec4/fin-track/tree/main#features)
+- [Tech stack](https://github.com/Juanfec4/fin-track/tree/main#tech-stack--dependencies)
+- [Roadmap (TO DO)](https://github.com/Juanfec4/fin-track/tree/main#roadmap-to-do)
+- [Enviroment variables](https://github.com/Juanfec4/fin-track/tree/main#environment-variables)
+- [Run locally](https://github.com/Juanfec4/fin-track/tree/main#run-locally-development-mode)
+
+## Badges
+
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 [![Release Version](https://img.shields.io/badge/Version-1.1.21-blue.svg)](https://choosealicense.com/licenses/mit/)
