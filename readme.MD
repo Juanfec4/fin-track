@@ -207,7 +207,7 @@ Start application
 - **Body:**
   ```json
   {
-    "budgetName": <string>
+    "budgetName": string
   }
   ```
 
@@ -221,7 +221,7 @@ Start application
 - **Body:**
   ```json
   {
-    "refreshToken": <TOKEN>
+    "refreshToken": TOKEN
   }
   ```
 
@@ -233,15 +233,15 @@ Start application
 - **Body:**
   ```json
   {
-    "email": <string>,
-    "password": <string>
+    "email": string,
+    "password": string
   }
   ```
 - **Response (Headers):**
   ```json
   {
-    "Authorization": <TOKEN>,
-    "RefreshToken": <TOKEN>
+    "Authorization": TOKEN,
+    "RefreshToken": TOKEN
   }
   ```
 
@@ -253,9 +253,9 @@ Start application
 - **Body:**
   ```json
   {
-      "username": <string>,
-      "email": <string>,
-      "password": <string>
+      "username": string,
+      "email": string,
+      "password": string
   }
   ```
 
@@ -271,10 +271,10 @@ Start application
 - **Body:**
   ```json
   {
-    "budgetId": <number>,
-    "type": <string>,
-    "categoryName": <string>,
-    "allocatedAmount": <number>
+    "budgetId": number>,
+    "type": string,
+    "categoryName": string,
+    "allocatedAmount": number
   }
   ```
 
@@ -290,9 +290,9 @@ Start application
 - **Body:**
   ```json
   {
-      "budgetId": <number>,
-      "categoryName": <string>,
-      "allocatedAmount": <number>
+      "budgetId": number,
+      "categoryName": string,
+      "allocatedAmount": number
   }
   ```
 
@@ -338,10 +338,10 @@ Start application
 - **Body:**
   ```json
   {
-      "budgetId": <number>,
-      "categoryId": <number>,
-      "amount": <number>,
-      "description": <string>
+      "budgetId": number,
+      "categoryId": number,
+      "amount": number,
+      "description": string
   }
   ```
 
@@ -355,10 +355,10 @@ Start application
 - **Body:**
   ```json
   {
-      "budgetId": <number>,
-      "categoryId": <number>,
-      "amount": <number>,
-      "description": <string>
+      "budgetId": number>,
+      "categoryId": number,
+      "amount": number,
+      "description": string
   }
   ```
 
